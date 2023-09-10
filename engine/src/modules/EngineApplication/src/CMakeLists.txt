@@ -1,29 +1,28 @@
 project(
-    EngineCore
+    EngineApplication
 )
-
-add_subdirectory(./modules)
 
 file(
     GLOB
-    ENGINE_CORE_SRC_FILES
-    ./cores/*.cpp
+    ENGINE_APPLICATION_SRC_FILES
+    ./*.cpp
 )
 
 add_library(
     ${PROJECT_NAME}
     STATIC
-    ${ENGINE_CORE_SRC_FILES}
+    ${ENGINE_APPLICATION_SRC_FILES}
 )
 
 target_include_directories(
     ${PROJECT_NAME}
     PUBLIC
-    ./cores/include
+    ./include
 )
 
 target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
-    EngineApplication
+    EngineWindow
+    EngineExceptions
 )
