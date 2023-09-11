@@ -19,3 +19,9 @@ target_include_directories(
     PUBLIC
     ./include
 )
+
+target_link_libraries(
+    ${PROJECT_NAME}
+    PUBLIC
+    EngineCores
+)

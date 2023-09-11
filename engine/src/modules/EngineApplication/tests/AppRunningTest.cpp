@@ -9,28 +9,8 @@ class WindowMocking : public ntt::Window
 {
     public:
         MOCK_METHOD0(Init, void());
-        MOCK_METHOD0(OnUpdate, void());
+        MOCK_METHOD(void, OnUpdate, (ntt::Timestep), (override));
         MOCK_METHOD0(Release, void());
-
-        void TakeDefaultInit()
-        {
-            ON_CALL(*this, Init()).WillByDefault([this]() {
-
-            });
-        }
-
-        void TakeDefaultRelease()
-        {
-            ON_CALL(*this, Init()).WillByDefault([this]() {
-
-            });
-        }
-
-        void TakeDefaultRealseAndInit()
-        {
-            TakeDefaultInit();
-            TakeDefaultRelease();
-        }
 
         static ntt::Ref<WindowMocking> CreateRef()
         {
@@ -47,7 +27,7 @@ TEST(AppRunningTest, WhenInitializeTheApplicationThenTheWindowIsAlsoInitialized)
                     .UseWindow(window);
 
     EXPECT_CALL(*window, Init()).Times(1);
-    EXPECT_CALL(*window, OnUpdate()).Times(1);
+    EXPECT_CALL(*window, OnUpdate(_)).Times(1);
     EXPECT_CALL(*window, Release()).Times(1);
 
     {
