@@ -25,4 +25,6 @@ target_link_libraries(
     PUBLIC
     glfw
     ImGui
+    EngineCores
+    EngineWindow
 )

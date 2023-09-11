@@ -1,5 +1,5 @@
 project(
-    EngineImguiTest
+    EngineImGuiTest
 )
 
 file(
@@ -21,13 +21,15 @@ target_include_directories(
 
 target_link_libraries(
     ${PROJECT_NAME}
-    PUBLIC
+    PRIVATE
     gtest
     gmock
 )
 
 target_link_libraries(
     ${PROJECT_NAME}
-    PRIVATE
+    PUBLIC
+    EngineWindow
+    EngineCores
     EngineImGui
 )

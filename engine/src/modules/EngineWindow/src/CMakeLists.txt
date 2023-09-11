@@ -14,6 +14,8 @@ add_library(
     ${ENGINE_WINDOW_SRC_FILES}
 )
 
+find_package(OpenGL REQUIRED)
+
 target_include_directories(
     ${PROJECT_NAME}
     PUBLIC
@@ -24,4 +26,8 @@ target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
     EngineCores
+    gtest
+    gmock
+    glfw
+    OpenGL::GL
 )
