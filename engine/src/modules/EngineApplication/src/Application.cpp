@@ -18,7 +18,7 @@ namespace ntt
 
     Application::~Application()
     {
-
+        window_->Release();
     }
 
     void Application::OnUpdate()
