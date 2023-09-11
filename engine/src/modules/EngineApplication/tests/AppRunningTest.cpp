@@ -27,7 +27,7 @@ TEST(AppRunningTest, WhenInitializeTheApplicationThenTheWindowIsAlsoInitialized)
                     .UseWindow(window);
 
     EXPECT_CALL(*window, Init()).Times(1);
-    EXPECT_CALL(*window, OnUpdate(_)).Times(1);
+    EXPECT_CALL(*window, OnUpdate(testing::_)).Times(1);
     EXPECT_CALL(*window, Release()).Times(1);
 
     {

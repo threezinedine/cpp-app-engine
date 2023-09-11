@@ -23,6 +23,7 @@ namespace ntt
 
     void Application::OnUpdate()
     {
-        window_->OnUpdate();
+        Timestep ts;
+        window_->OnUpdate(ts);
     }
 } // namespace ntt
