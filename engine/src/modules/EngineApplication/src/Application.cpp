@@ -5,7 +5,7 @@
 
 namespace ntt
 {
-    Application::Application(std::shared_ptr<Window> window)
+    Application::Application(Ref<Window> window)
         : window_(window)
     {
         window->Init();
@@ -19,5 +19,10 @@ namespace ntt
     Application::~Application()
     {
 
+    }
+
+    void Application::OnUpdate()
+    {
+        window_->OnUpdate();
     }
 } // namespace ntt

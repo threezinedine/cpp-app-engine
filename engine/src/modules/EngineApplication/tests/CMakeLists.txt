@@ -23,6 +23,7 @@ target_link_libraries(
 target_link_libraries(
     ${PROJECT_NAME}    
     PUBLIC
+    EngineCores
     EngineApplication
     EngineExceptions
     EngineWindow

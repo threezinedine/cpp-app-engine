@@ -1,5 +1,5 @@
 #pragma once
-#include <memory>
+#include "EngineCores/ScopeDefinition.hpp"
 
 
 namespace ntt
@@ -9,11 +9,13 @@ namespace ntt
     class Application
     {
         public:
-            Application(std::shared_ptr<Window> window);
+            Application(Ref<Window> window);
             Application(const Application& application);
             ~Application();
 
+            void OnUpdate();
+
         private:
-            std::shared_ptr<Window> window_;
+            Ref<Window> window_;
     };
 } // namespace ntt
