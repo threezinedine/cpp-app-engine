@@ -11,12 +11,13 @@ namespace ntt
     class ImGuiWindow
     {
         public:
-            void OnUpdate(Timestep ts);
-            void AppendComponent(Ref<ImGuiComponent> component);
+            ImGuiWindow(const char* title);
+            virtual ~ImGuiWindow() = default;
 
-            static Ref<ImGuiWindow> CreateRef(const char* title);
+            virtual void OnUpdate(Timestep ts);
+            virtual void OnUpdateImpl(Timestep ts) = 0;
 
         private:
-            std::vector<Ref<ImGuiComponent>> components_;
+            const char* title_;
     };
 } // namespace ntt

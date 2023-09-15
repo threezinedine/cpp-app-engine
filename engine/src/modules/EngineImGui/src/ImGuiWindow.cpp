@@ -1,25 +1,22 @@
 #include "EngineImGui/PreInclude.hpp"
 #include "EngineImGui/ImGuiWindow.hpp"
-#include "EngineImGui/ImGuiComponent.hpp"
+
+#include <imgui.h>
 
 
 namespace ntt
 {
+    ImGuiWindow::ImGuiWindow(const char* title)
+        : title_(title)
+    {
+
+    }
+
     void ImGuiWindow::OnUpdate(Timestep ts)
     {
-        for (auto component: components_)
+        if (ImGui::Begin(title_))
         {
-            component->OnUpdate(ts);
+            OnUpdateImpl(ts);
         }
     }
-
-    void ImGuiWindow::AppendComponent(Ref<ImGuiComponent> component)
-    {
-        components_.push_back(component);
-    }
-
-    Ref<ImGuiWindow> ImGuiWindow::CreateRef(const char* title)
-    {
-        return std::make_unique<ImGuiWindow>();
-    } 
 } // namespace ntt
