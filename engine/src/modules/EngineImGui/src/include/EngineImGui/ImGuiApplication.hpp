@@ -13,6 +13,8 @@ namespace ntt
             ImGuiApplication(Ref<Window>);
             ~ImGuiApplication();
 
+            long long MainLoop();
+
         private:
             Ref<Window> window_;
     }; 

@@ -2,11 +2,27 @@ project(
     EngineCoreTesting
 )
 
+
 file(
     GLOB
     ENGINE_CORE_TESTING_SRC_FILES
     ./*.cpp
 )
+
+SET(TEST_FOLDERS
+    ../src/modules/EngineImGui/tests
+    ../src/modules/EngineApplication/tests
+)
+
+foreach(folder ${TEST_FOLDERS})
+    file(
+        GLOB
+        CPP_FILES_IN_FOLDER
+        ${folder}/*.cpp
+    ) 
+
+    list(APPEND ENGINE_CORE_TESTING_SRC_FILES ${CPP_FILES_IN_FOLDER})
+endforeach()
 
 add_executable(
     ${PROJECT_NAME}

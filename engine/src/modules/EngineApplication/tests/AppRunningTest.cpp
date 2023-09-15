@@ -6,25 +6,39 @@
 #include "EngineWindow/mocking/WindowMocking.hpp"
 
 
-TEST(AppRunningTest, WhenInitializeTheApplicationThenTheWindowIsAlsoInitialized)
+class AppRunningTest: public testing::Test
 {
-    ntt::Ref<WindowMocking> window = WindowMocking::CreateRef();
+    protected:
+        ntt::Ref<WindowMocking> window_;
 
+        void SetUp() override
+        {
+            window_ = WindowMocking::CreateRef();
+        }
+};
+
+
+TEST_F(AppRunningTest, WhenInitializeTheApplicationThenTheWindowIsAlsoInitialized)
+{
     auto builder = ntt::ApplicationBuilder()
-                    .UseWindow(window);
+                    .UseWindow(window_);
 
-    EXPECT_CALL(*window, Init()).Times(1);
-    EXPECT_CALL(*window, OnUpdate(testing::_)).Times(1);
-    EXPECT_CALL(*window, Release()).Times(1);
+    EXPECT_CALL(*window_, Init()).Times(1);
+    EXPECT_CALL(*window_, Release()).Times(1);
+
+    window_->WindowShouldCloseAfter(5);
+    EXPECT_CALL(*window_, OnUpdateBegin(testing::_)).Times(5);
+    EXPECT_CALL(*window_, OnUpdateEnd(testing::_)).Times(5);
 
     {
         auto application = builder.Build();
 
-        application.OnUpdate();
+        long long loop = application.MainLoop();
+        EXPECT_THAT(loop, testing::Eq(5));
     }
 }
 
-TEST(AppRunningTest, WhenInitializeTheApplicationWithoutTheWindowThenThrowException)
+TEST_F(AppRunningTest, WhenInitializeTheApplicationWithoutTheWindowThenThrowException)
 {
     auto builder = ntt::ApplicationBuilder();
 

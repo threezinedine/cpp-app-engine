@@ -30,4 +30,5 @@ target_link_libraries(
     gmock
     glfw
     OpenGL::GL
+    ImGui
 )

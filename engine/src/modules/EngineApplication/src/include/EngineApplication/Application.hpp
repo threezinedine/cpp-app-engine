@@ -13,7 +13,7 @@ namespace ntt
             Application(const Application& application);
             ~Application();
 
-            void OnUpdate();
+            long long MainLoop();
 
         private:
             Ref<Window> window_;

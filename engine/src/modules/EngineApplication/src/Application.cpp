@@ -21,9 +21,18 @@ namespace ntt
         window_->Release();
     }
 
-    void Application::OnUpdate()
+    long long Application::MainLoop()
     {
-        Timestep ts;
-        window_->OnUpdate(ts);
+        long long loop = 0;
+
+        while (!window_->ShouldClose())
+        {
+            Timestep ts;
+            window_->OnUpdateBegin(ts);
+            window_->OnUpdateEnd(ts);
+            loop++;
+        }
+
+        return loop;
     }
 } // namespace ntt
