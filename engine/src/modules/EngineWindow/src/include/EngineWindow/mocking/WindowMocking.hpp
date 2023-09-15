@@ -33,6 +33,16 @@ class WindowMocking : public ntt::Window
                             .WillOnce(testing::Return(true));
         }
 
+        void IgnoreMocking()
+        {
+            EXPECT_CALL(*this, Init()).Times(testing::AnyNumber());
+            EXPECT_CALL(*this, ImGuiBackendInit()).Times(testing::AnyNumber());
+            EXPECT_CALL(*this, OnUpdateBegin(testing::_)).Times(testing::AnyNumber());
+            EXPECT_CALL(*this, OnUpdateEnd(testing::_)).Times(testing::AnyNumber());
+            EXPECT_CALL(*this, Release()).Times(testing::AnyNumber());
+            EXPECT_CALL(*this, ImGuiBackendRelease()).Times(testing::AnyNumber());
+        }
+
         static ntt::Ref<WindowMocking> CreateRef()
         {
             return std::make_shared<WindowMocking>();

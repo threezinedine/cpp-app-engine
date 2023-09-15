@@ -3,6 +3,7 @@
 #include "EngineWindow/EngineWindow.hpp"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
+#include "EngineImGui/ImGuiWindow.hpp"
 
 
 namespace ntt
@@ -36,10 +37,21 @@ namespace ntt
         {
             Timestep ts;
             window_->OnUpdateBegin(ts);
+            
+            for (auto imguiWindow: imguiWindows_)
+            {
+                imguiWindow->OnUpdate(ts);
+            }
+            
             window_->OnUpdateEnd(ts);
             loop++;
         }
 
         return loop;
+    }
+
+    void ImGuiApplication::AppendWindow(Ref<ImGuiWindow> window)
+    {
+        imguiWindows_.push_back(window);
     }
 } // namespace ntt

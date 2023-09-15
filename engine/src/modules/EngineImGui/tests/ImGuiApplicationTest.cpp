@@ -1,10 +1,25 @@
 #include "PreInclude.hpp"
 
 #include "EngineImGui/ImGuiApplication.hpp"
+#include "EngineImGui/ImGuiComponent.hpp"
+#include "EngineImGui/ImGuiWindow.hpp"
+#include "EngineCores/EngineCores.hpp"
 #include "EngineWindow/EngineWindow.hpp"
 #include "EngineWindow/mocking/WindowMocking.hpp"
 
 #include <imgui.h>
+
+
+class ImGuiComponentMock: public ntt::ImGuiComponent
+{
+    public:
+        MOCK_METHOD(void, OnUpdate, (ntt::Timestep), (override));
+
+        static ntt::Ref<ImGuiComponentMock> CreateRef()
+        {
+            return std::make_shared<ImGuiComponentMock>();
+        }
+};
 
 
 class ImGuiApplicationTest: public testing::Test
@@ -39,4 +54,21 @@ TEST_F(ImGuiApplicationTest, WhenInitializeImGuiApplicationAlsoInitializeWindow)
     }
     
     ASSERT_THAT(ImGui::GetCurrentContext(), ::testing::IsNull());
+}
+
+TEST_F(ImGuiApplicationTest, GivenAddingANewImGuiApplicationWindowWhenRunOnUpdateThenOnUpdateWillBeCalled)
+{
+    window_->IgnoreMocking();
+    window_->WindowShouldCloseAfter(5);
+
+    ntt::ImGuiApplication application(window_);
+    auto imguiWindow = ntt::ImGuiWindow::CreateRef("Testing window");
+    auto imguiComponent = ImGuiComponentMock::CreateRef();
+    imguiWindow->AppendComponent(imguiComponent);
+
+    EXPECT_CALL(*imguiComponent, OnUpdate(testing::_)).Times(5);
+
+    application.AppendWindow(imguiWindow);
+
+    application.MainLoop();
 }
