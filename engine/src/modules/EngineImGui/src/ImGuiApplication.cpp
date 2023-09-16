@@ -17,6 +17,7 @@ namespace ntt
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
         ImGui::StyleColorsDark();
 
@@ -37,6 +38,8 @@ namespace ntt
         {
             Timestep ts;
             window_->OnUpdateBegin(ts);
+
+            ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
             
             for (auto imguiWindow: imguiWindows_)
             {
