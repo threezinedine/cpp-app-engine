@@ -43,4 +43,5 @@ target_link_libraries(
     gtest
     gmock
     EngineCore
+    EngineDataType
 )

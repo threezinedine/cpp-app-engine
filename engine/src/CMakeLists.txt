@@ -30,4 +30,5 @@ target_link_libraries(
     EngineWindow
     EngineExceptions
     EngineCores
+    EngineDataType
 )

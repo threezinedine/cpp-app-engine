@@ -6,7 +6,7 @@ class TestWindow: public ntt::ImGuiWindow
 {
     public:
         TestWindow()
-            : ntt::ImGuiWindow("Test Window")
+            : ntt::ImGuiWindow("Test Window"), scores_("Scores")
         {
 
         }
@@ -14,10 +14,15 @@ class TestWindow: public ntt::ImGuiWindow
         void OnUpdateImpl(ntt::Timestep ts) override
         {
             ImGui::Text("Test Window");
-            static bool showWindow = true;
 
+            static bool showWindow = true;
             ImGui::ShowDemoWindow(&showWindow);
+
+            scores_.OnUpdate(ts, ntt::SLIDER);
         }
+
+    private:
+        ntt::Integer scores_;
 };
 
 
