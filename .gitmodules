@@ -1,6 +1,10 @@
 [submodule "engine\\vendors\\googletest"]
 	path = engine/vendors/googletest
 	url = https://github.com/google/googletest.git
+[submodule "engine\\src\\modules\\EngineImGui\\vendors\\imgui"]
+	path = engine/src/modules/EngineImGui/vendors/imgui
+	url = https://github.com/threezinedine/imgui.git
+	branch = docking
 [submodule "engine\\src\\modules\\EngineWindow\\vendors\\glfw"]
 	path = engine/src/modules/EngineWindow/vendors/glfw
 	url = https://github.com/glfw/glfw.git
