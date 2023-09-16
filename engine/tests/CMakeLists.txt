@@ -9,9 +9,11 @@ file(
     ./*.cpp
 )
 
+
 SET(TEST_FOLDERS
     ../src/modules/EngineImGui/tests
     ../src/modules/EngineApplication/tests
+    ../src/modules/EngineDataType/tests
 )
 
 foreach(folder ${TEST_FOLDERS})

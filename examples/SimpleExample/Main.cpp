@@ -28,6 +28,7 @@ int main(void)
     auto application = ntt::ImGuiApplicationBuilder()
                             .UseWindow(window)
                             .AddImGuiWindow(std::make_shared<TestWindow>())
+                            .UseDocking()
                             .Build();
 
     application->MainLoop();

@@ -50,7 +50,7 @@ TEST_F(ImGuiApplicationTest, WhenInitializeImGuiApplicationAlsoInitializeWindow)
     EXPECT_CALL(*window_, OnUpdateEnd(testing::_)).Times(5);
 
     {
-        ntt::ImGuiApplication imguiApplication(window_);
+        ntt::ImGuiApplication imguiApplication(window_, false);
         ASSERT_THAT(ImGui::GetCurrentContext(), ::testing::NotNull());
 
         long long loop = imguiApplication.MainLoop();

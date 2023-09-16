@@ -33,6 +33,12 @@ namespace ntt
         return *this;
     }
 
+    ImGuiApplicationBuilder& ImGuiApplicationBuilder::UseDocking()
+    {
+        docking_ = true;
+        return *this;
+    }
+
     Ref<ImGuiApplication> ImGuiApplicationBuilder::Build()
     {
         if (window_ == nullptr)
@@ -40,7 +46,7 @@ namespace ntt
             throw ImGuiApplicationConfigErrorException("Window is not set.");
         }
 
-        auto imguiApplication = std::make_shared<ImGuiApplication>(window_);
+        auto imguiApplication = std::make_shared<ImGuiApplication>(window_, docking_);
 
         for (auto imguiWindow: imguiWindows_)
         {

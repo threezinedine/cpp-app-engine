@@ -5,11 +5,13 @@
 #include <imgui_impl_glfw.h>
 #include "EngineImGui/ImGuiWindow.hpp"
 
+#include <iostream>
+
 
 namespace ntt
 {
-    ImGuiApplication::ImGuiApplication(Ref<Window> window)    
-        : window_(window)
+    ImGuiApplication::ImGuiApplication(Ref<Window> window, bool docking)    
+        : window_(window), docking_(docking)
     {
         window_->Init();
         ImGui::CreateContext();
@@ -17,7 +19,11 @@ namespace ntt
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
-        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+        if (docking_)
+        {
+            io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+        }
 
         ImGui::StyleColorsDark();
 
@@ -39,7 +45,10 @@ namespace ntt
             Timestep ts;
             window_->OnUpdateBegin(ts);
 
-            ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+            if (docking_)
+            {
+                ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+            }
             
             for (auto imguiWindow: imguiWindows_)
             {

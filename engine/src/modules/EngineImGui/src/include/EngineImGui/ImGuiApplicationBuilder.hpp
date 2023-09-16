@@ -17,10 +17,12 @@ namespace ntt
 
             ImGuiApplicationBuilder& UseWindow(Ref<Window> window);
             ImGuiApplicationBuilder& AddImGuiWindow(Ref<ImGuiWindow> imguiWindow);
+            ImGuiApplicationBuilder& UseDocking();
             Ref<ImGuiApplication> Build();
 
         private:
             Ref<Window> window_;
             std::vector<Ref<ImGuiWindow>> imguiWindows_;
+            bool docking_ = false;
     }; 
 } // namespace ntt
