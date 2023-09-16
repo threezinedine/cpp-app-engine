@@ -3,6 +3,8 @@
 #include "EngineCores/EngineCores.hpp"
 
 #include <imgui.h>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_glfw.h>
 
 
 namespace ntt
@@ -52,6 +54,8 @@ namespace ntt
             window_ = glfwCreateWindow(width_, height_, title_, nullptr, nullptr);
         }
 
+        glfwMakeContextCurrent(window_);
+
         glfwSetWindowCloseCallback(window_, [](GLFWwindow* window)
         {
             glfwSetWindowShouldClose(window, GLFW_TRUE);
@@ -60,19 +64,30 @@ namespace ntt
 
     void WindowImpl::ImGuiBackendInit() 
     {
-
+        ImGui_ImplGlfw_InitForOpenGL(window_, true);
+        ImGui_ImplOpenGL3_Init("#version 330");
     }
 
     void WindowImpl::OnUpdateBegin(Timestep ts)
     {
-        glfwSwapBuffers(window_);
         glfwPollEvents();
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
     }
 
     void WindowImpl::OnUpdateEnd(Timestep ts)
     {
+        ImGui::Render();
+        int display_w, display_h;
+        glfwGetFramebufferSize(window_, &display_w, &display_h);
+        glViewport(0, 0, display_w, display_h);
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
         glfwSwapBuffers(window_);
-        glfwPollEvents();
     }
 
     void WindowImpl::Release()
@@ -82,7 +97,8 @@ namespace ntt
 
     void WindowImpl::ImGuiBackendRelease()
     {
-        
+        ImGui_ImplOpenGL3_Shutdown();
+        ImGui_ImplGlfw_Shutdown();
     }
 
     bool WindowImpl::ShouldClose()

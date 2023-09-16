@@ -27,4 +27,5 @@ target_link_libraries(
     ImGui
     EngineCores
     EngineWindow
+    EngineExceptions
 )

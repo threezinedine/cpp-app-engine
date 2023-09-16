@@ -14,9 +14,8 @@ namespace ntt
 
     void ImGuiWindow::OnUpdate(Timestep ts)
     {
-        if (ImGui::Begin(title_))
-        {
-            OnUpdateImpl(ts);
-        }
+        ImGui::Begin(title_);
+        OnUpdateImpl(ts);
+        ImGui::End();
     }
 } // namespace ntt

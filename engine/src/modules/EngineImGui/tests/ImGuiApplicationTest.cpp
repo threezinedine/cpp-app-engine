@@ -2,9 +2,11 @@
 
 #include "EngineImGui/ImGuiApplication.hpp"
 #include "EngineImGui/ImGuiWindow.hpp"
+#include "EngineImgui/ImGuiApplicationBuilder.hpp"
 #include "EngineCores/EngineCores.hpp"
 #include "EngineWindow/EngineWindow.hpp"
 #include "EngineWindow/mocking/WindowMocking.hpp"
+#include "EngineExceptions/EngineExceptions.hpp"
 
 #include <imgui.h>
 
@@ -64,12 +66,21 @@ TEST_F(ImGuiApplicationTest, GivenAddingANewImGuiApplicationWindowWhenRunOnUpdat
     window_->IgnoreMocking();
     window_->WindowShouldCloseAfter(5);
 
-    ntt::ImGuiApplication application(window_);
     auto imguiWindow = ImGuiWindowMock::CreateRef();
+    ntt::Ref<ntt::ImGuiApplication> application = ntt::ImGuiApplicationBuilder()
+                                            .UseWindow(window_)
+                                            .AddImGuiWindow(imguiWindow)
+                                            .Build();
 
     EXPECT_CALL(*imguiWindow, OnUpdate(testing::_)).Times(5);
 
-    application.AppendWindow(imguiWindow);
+    application->MainLoop();
+}
 
-    application.MainLoop();
+TEST_F(ImGuiApplicationTest, WhenCreateApplicationWithoutWindowThenThrowError)
+{
+    EXPECT_THROW(auto application = ntt::ImGuiApplicationBuilder()
+                        .Build(),
+        ntt::ImGuiApplicationConfigErrorException
+    );
 }
