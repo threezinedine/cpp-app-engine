@@ -8,3 +8,6 @@
 [submodule "engine\\src\\modules\\EngineWindow\\vendors\\glfw"]
 	path = engine/src/modules/EngineWindow/vendors/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "engine/src/modules/EngineImGui/vendors/imgui"]
+	path = engine/src/modules/EngineImGui/vendors/imgui
+	url = https://github.com/threezinedine/imgui.git
