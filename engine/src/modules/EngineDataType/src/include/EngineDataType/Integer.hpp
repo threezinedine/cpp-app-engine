@@ -20,7 +20,8 @@ namespace ntt
 
             int Value() const;
             void OnUpdate(Timestep ts, InputType type = NONE);
-            const char* GetName() const;
+            inline const char* GetName() const { return name_; }
+            void SetValue(int value);
 
         private:
             const char* name_;

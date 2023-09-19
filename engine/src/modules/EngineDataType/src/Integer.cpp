@@ -12,21 +12,21 @@ namespace ntt
     }
 
     Integer::Integer(const char* name, int defaultValue)
-        : name_(name), value_(defaultValue), min_(0), max_(100), storage_(nullptr)
+        : name_(name), min_(0), max_(100), storage_(nullptr)
     {
-
+        SetValue(defaultValue);
     }
 
     Integer::Integer(const char* name, int defaultValue, int min, int max)
-        : name_(name), value_(defaultValue), min_(min), max_(max), storage_(nullptr)
+        : name_(name), min_(min), max_(max), storage_(nullptr)
     {
-
+        SetValue(defaultValue);
     }
 
     Integer::Integer(const char* name, int defaultValue, int min, int max, Ref<DataStorage> storage)
         : name_(name), value_(defaultValue), min_(min), max_(max), storage_(storage)
     {
-        value_ = storage_->GetInteger(name);
+        SetValue(storage_->GetInteger(name, defaultValue));
     }
 
     Integer::~Integer()
@@ -61,8 +61,19 @@ namespace ntt
         }
     }
 
-    const char* Integer::GetName() const 
+    void Integer::SetValue(int value)
     {
-        return name_;
+        if (value > max_) 
+        {
+            value_ = max_;
+        }
+        else if (value < min_)
+        {
+            value_ = min_;
+        }
+        else 
+        {
+            value_ = value;
+        }
     }
 } // namespace ntt
