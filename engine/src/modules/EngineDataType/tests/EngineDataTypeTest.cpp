@@ -1,3 +1,5 @@
+#include <glm/glm.hpp>
+
 #include "PreInclude.hpp"
 #include "EngineDataType/EngineDataType.hpp"
 #include "EngineCores/EngineCores.hpp"
@@ -85,4 +87,9 @@ TEST_F(EngineDataTypeTest, GivenAnIntegerWithStorageThenBeSavedWhenDeleted)
 
         EXPECT_THAT(value.Value(), testing::Eq(2));
     }
+}
+
+TEST_F(EngineDataTypeTest, GivenIntegerVec2ThenItHasTheSamePropertiesAndMethodLikeTheInteger)
+{
+    ntt::Integer2 value("Scores", { 0, 0 }, 0, 100);
 }
