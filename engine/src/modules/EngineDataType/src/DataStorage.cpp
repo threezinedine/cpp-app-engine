@@ -31,4 +31,14 @@ namespace ntt
     {
         return defaultValue;
     }
+
+    void DataStorage::SaveInteger4(const char* name, std::vector<int> value)
+    {
+
+    }
+
+    std::vector<int> DataStorage::GetInteger4(const char* name, std::vector<int> defaultValue)
+    {
+        return defaultValue;
+    }
 } // namespace ntt

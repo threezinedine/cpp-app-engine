@@ -25,11 +25,11 @@ TEST_F(EngineDataTypeTest, Integer3WithoutLimit)
     EXPECT_THAT(value.Value(), testing::ElementsAre(1, 0, 12));
 }
 
-// TEST_F(EngineDataTypeTest, Integer3ConstructorWithExceedLimitDefaultValue)
-// {
-//     ntt::Integer3 value("Scores", { 11, 0, 11 }, 3, 6);
-//     EXPECT_THAT(value.Value(), testing::ElementsAre(6, 3, 6));
-// }
+TEST_F(EngineDataTypeTest, Integer3ConstructorWithExceedLimitDefaultValue)
+{
+    ntt::Integer3 value("Scores", { 11, 0, 11 }, 3, 6);
+    EXPECT_THAT(value.Value(), testing::ElementsAre(6, 3, 6));
+}
 
 TEST_F(EngineDataTypeTest, Integer3WithStorage)
 {

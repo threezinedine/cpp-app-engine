@@ -10,7 +10,8 @@ class TestWindow: public ntt::ImGuiWindow
             : ntt::ImGuiWindow("Test Window"), 
                 scores_("Scores"),
                 position_("Positions"),
-                position3D_("Position 3D", { 0, 0, 0 }, 10, 300)
+                position3D_("Position 3D", { 0, 0, 0 }, 10, 300),
+                color_("Color", { 0, 0, 0, 0 }, 0, 255)
         {
 
         }
@@ -23,14 +24,16 @@ class TestWindow: public ntt::ImGuiWindow
             ImGui::ShowDemoWindow(&showWindow);
 
             scores_.OnUpdate(ts, ntt::SLIDER);
-            position_.OnUpdate(ts, ntt::SLIDER);
+            position_.OnUpdate(ts, ntt::INPUT);
             position3D_.OnUpdate(ts, ntt::SLIDER);
+            color_.OnUpdate(ts, ntt::SLIDER);
         }
 
     private:
         ntt::Integer scores_;
         ntt::Integer2 position_;
         ntt::Integer3 position3D_;
+        ntt::Integer4 color_;
 };
 
 
