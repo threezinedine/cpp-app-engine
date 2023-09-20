@@ -2,7 +2,7 @@
 
 #include "InputType.hpp"
 #include "DataStorage.hpp"
-#include "Data.hpp"
+#include "Array.hpp"
 
 #include "Integer.hpp"
 #include "Integer2.hpp"

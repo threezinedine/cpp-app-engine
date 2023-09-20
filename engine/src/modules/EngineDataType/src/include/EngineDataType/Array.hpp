@@ -8,16 +8,16 @@
 namespace ntt
 {
     template <typename T, int N>
-    class Data
+    class Array
     {
         public:
-            Data(const char* name, std::vector<T> defaultValue, T minValue, T maxValue)
+            Array(const char* name, std::vector<T> defaultValue, T minValue, T maxValue)
                 : name_(name), minValue_(minValue), maxValue_(maxValue)
             {
                 SetValue(defaultValue);
             }
 
-            Data(const char* name, std::vector<T> defaultValue, 
+            Array(const char* name, std::vector<T> defaultValue, 
                         T minValue, T maxValue, Ref<DataStorage> storage)
                 : name_(name), minValue_(minValue), maxValue_(maxValue),
                     storage_(storage)
@@ -25,19 +25,19 @@ namespace ntt
                 SetValue(storage->GetIntegers(GetName(), defaultValue));
             }
 
-            Data(const char* name)
+            Array(const char* name)
                 : name_(name), value_(std::vector<T>(N, 0)), minValue_(0), maxValue_(100)
             {
 
             }
 
-            Data(const char* name, std::vector<T> defaultValue)
+            Array(const char* name, std::vector<T> defaultValue)
                 : name_(name), minValue_(0), maxValue_(100)
             {
                 SetValue(defaultValue);
             }
 
-            ~Data()
+            ~Array()
             {
                 if (storage_ != nullptr)
                 {
@@ -73,4 +73,5 @@ namespace ntt
             T maxValue_;
             Ref<DataStorage> storage_;
     };
+
 } // namespace ntt
