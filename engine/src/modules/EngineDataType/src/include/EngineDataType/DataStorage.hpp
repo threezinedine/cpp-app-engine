@@ -10,6 +10,9 @@ namespace ntt
             virtual void SaveInteger(const char* name, int value);
             virtual int GetInteger(const char* name, int defaultValue = 0);
 
+            virtual void SaveIntegers(const char* name, std::vector<int> value);
+            virtual std::vector<int> GetIntegers(const char* name, std::vector<int> defaultValue);
+
             virtual void SaveInteger2(const char* name, std::vector<int> value);
             virtual std::vector<int> GetInteger2(const char* name, 
                                 std::vector<int> defaultValue = { 0, 0 });

@@ -13,6 +13,16 @@ namespace ntt
         return defaultValue;
     }
 
+    void DataStorage::SaveIntegers(const char* name, std::vector<int> value)
+    {
+
+    }
+
+    std::vector<int> DataStorage::GetIntegers(const char* name, std::vector<int> defaultValue)
+    {
+        return defaultValue;
+    }
+
     void DataStorage::SaveInteger2(const char* name, std::vector<int> value)
     {
 

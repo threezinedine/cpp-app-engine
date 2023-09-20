@@ -8,6 +8,9 @@ class DataStorageMocking: public ntt::DataStorage
         MOCK_METHOD(void, SaveInteger, (const char*, int), (override));
         MOCK_METHOD(int, GetInteger, (const char*, int), (override));
 
+        MOCK_METHOD(void, SaveIntegers, (const char*, std::vector<int>), (override));
+        MOCK_METHOD(std::vector<int>, GetIntegers, (const char*, std::vector<int>), (override));
+
         MOCK_METHOD(void, SaveInteger2, (const char*, std::vector<int>), (override));
         MOCK_METHOD(std::vector<int>, GetInteger2, (const char*, std::vector<int>), (override));
 
@@ -73,6 +76,19 @@ class DataStorageMocking: public ntt::DataStorage
         void IgnoreSetInteger4(const char* name)
         {
             EXPECT_CALL(*this, SaveInteger4(name, testing::_)).Times(testing::AnyNumber());
+        }
+
+        void SetGetIntegersReturn(const char* name, std::vector<int> value, std::vector<int> defaultValue)
+        {
+            ON_CALL(*this, GetIntegers(name, defaultValue))
+                .WillByDefault(testing::Return(value));
+
+            EXPECT_CALL(*this, GetIntegers(name, defaultValue)).Times(testing::AnyNumber());
+        }
+
+        void IgnoreSetIntegers(const char* name)
+        {
+            EXPECT_CALL(*this, SaveIntegers(name, testing::_)).Times(testing::AnyNumber());
         }
 };
 

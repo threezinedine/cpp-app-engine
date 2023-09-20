@@ -31,4 +31,5 @@ namespace ntt
 
             Ref<DataStorage> storage_;
     }; 
+
 } // namespace ntt
