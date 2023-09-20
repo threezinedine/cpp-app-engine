@@ -11,16 +11,6 @@ class DataStorageMocking: public ntt::DataStorage
         MOCK_METHOD(void, SaveIntegers, (const char*, std::vector<int>), (override));
         MOCK_METHOD(std::vector<int>, GetIntegers, (const char*, std::vector<int>), (override));
 
-        MOCK_METHOD(void, SaveInteger2, (const char*, std::vector<int>), (override));
-        MOCK_METHOD(std::vector<int>, GetInteger2, (const char*, std::vector<int>), (override));
-
-        MOCK_METHOD(void, SaveInteger3, (const char*, std::vector<int>), (override));
-        MOCK_METHOD(std::vector<int>, GetInteger3, (const char*, std::vector<int>), (override));
-
-        MOCK_METHOD(void, SaveInteger4, (const char*, std::vector<int>), (override));
-        MOCK_METHOD(std::vector<int>, GetInteger4, (const char*, std::vector<int>), (override));
-
-
         static ntt::Ref<DataStorageMocking> CreateRef()
         {
             return std::make_shared<DataStorageMocking>();
@@ -37,45 +27,6 @@ class DataStorageMocking: public ntt::DataStorage
         void IgnoreSetInteger(const char* name)
         {
             EXPECT_CALL(*this, SaveInteger(name, testing::_)).Times(testing::AnyNumber());
-        }
-
-        void SetGetInteger2Return(const char* name, std::vector<int> value, std::vector<int> defaultValue)
-        {
-            ON_CALL(*this, GetInteger2(name, defaultValue))
-                .WillByDefault(testing::Return(value));
-
-            EXPECT_CALL(*this, GetInteger2(name, defaultValue)).Times(testing::AnyNumber());
-        }
-
-        void IgnoreSetInteger2(const char* name)
-        {
-            EXPECT_CALL(*this, SaveInteger2(name, testing::_)).Times(testing::AnyNumber());
-        }
-
-        void SetGetInteger3Return(const char* name, std::vector<int> value, std::vector<int> defaultValue)
-        {
-            ON_CALL(*this, GetInteger3(name, defaultValue))
-                .WillByDefault(testing::Return(value));
-
-            EXPECT_CALL(*this, GetInteger3(name, defaultValue)).Times(testing::AnyNumber());
-        }
-
-        void IgnoreSetInteger3(const char* name)
-        {
-            EXPECT_CALL(*this, SaveInteger3(name, testing::_)).Times(testing::AnyNumber());
-        }
-
-        void SetGetInteger4Return(const char* name, std::vector<int> value, std::vector<int> defaultValue)
-        {
-            ON_CALL(*this, GetInteger4(name, defaultValue))
-                .WillByDefault(testing::Return(value));
-
-            EXPECT_CALL(*this, GetInteger4(name, defaultValue)).Times(testing::AnyNumber());
-        }
-
-        void IgnoreSetInteger4(const char* name)
-        {
-            EXPECT_CALL(*this, SaveInteger4(name, testing::_)).Times(testing::AnyNumber());
         }
 
         void SetGetIntegersReturn(const char* name, std::vector<int> value, std::vector<int> defaultValue)

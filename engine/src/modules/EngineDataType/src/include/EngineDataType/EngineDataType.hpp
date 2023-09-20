@@ -5,8 +5,3 @@
 
 #include "Data.hpp"
 #include "Array.hpp"
-
-#include "Integer.hpp"
-#include "Integer2.hpp"
-#include "Integer3.hpp"
-#include "Integer4.hpp"
