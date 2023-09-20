@@ -24,16 +24,16 @@ class TestWindow: public ntt::ImGuiWindow
             ImGui::ShowDemoWindow(&showWindow);
 
             scores_.OnUpdate(ts, ntt::SLIDER);
-            position_.OnUpdate(ts, ntt::INPUT);
+            position_.OnUpdate(ts, ntt::SLIDER);
             position3D_.OnUpdate(ts, ntt::SLIDER);
             color_.OnUpdate(ts, ntt::SLIDER);
         }
 
     private:
-        ntt::Integer scores_;
-        ntt::Integer2 position_;
-        ntt::Integer3 position3D_;
-        ntt::Integer4 color_;
+        ntt::Data<int> scores_;
+        ntt::Array<int, 2> position_;
+        ntt::Array<int, 3> position3D_;
+        ntt::Array<int, 4> color_;
 };
 
 

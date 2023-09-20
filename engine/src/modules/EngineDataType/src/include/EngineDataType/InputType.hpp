@@ -7,6 +7,7 @@ namespace ntt
     {
         NONE,
         INPUT,
-        SLIDER
+        SLIDER,
+        COLOR_PICKER,
     }; 
 } // namespace ntt

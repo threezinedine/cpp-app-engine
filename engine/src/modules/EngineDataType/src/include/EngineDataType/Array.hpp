@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
 #include "InputType.hpp"
-#include "EngineCores/EngineCores.hpp"
-#include "DataStorage.hpp"
+#include "PreInclude.hpp"
 
 
 namespace ntt
@@ -49,10 +48,23 @@ namespace ntt
 
             std::vector<T> Value() { return value_; }
 
-            void OnUpdate(Timestep ts, InputType type = NONE)
-            {
-                
-            }
+            void OnUpdate(Timestep ts, InputType type = NONE);
+            // {
+            //     switch (type)
+            //     {
+            //         case NONE:
+            //             break;
+            //         case INPUT:
+            //             ImGui::InputInt2(GetName(), &value_[0]);
+            //             break;
+            //         case SLIDER:
+            //             ImGui::SliderInt2(GetName(), &value_[0], minValue_, maxValue_);
+            //             break;
+                    
+            //         default:
+            //             break;
+            //     } 
+            // }
 
             void SetValue(std::vector<T> value)
             {
@@ -73,5 +85,4 @@ namespace ntt
             T maxValue_;
             Ref<DataStorage> storage_;
     };
-
 } // namespace ntt

@@ -1,7 +1,6 @@
 #pragma once
+#include "PreInclude.hpp"
 #include "InputType.hpp"
-#include "DataStorage.hpp"
-#include "EngineCores/EngineCores.hpp"
 
 
 namespace ntt
@@ -48,10 +47,7 @@ namespace ntt
 
             T Value() { return value_; }
 
-            void OnUpdate(Timestep ts, InputType type = NONE)
-            {
-
-            }
+            void OnUpdate(Timestep ts, InputType type = NONE);
 
             void SetValue(T value)
             {
