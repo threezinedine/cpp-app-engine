@@ -21,7 +21,7 @@ namespace ntt
                 : name_(name), minValue_(minValue), maxValue_(maxValue),
                     storage_(storage)
             {
-                SetValue(storage->GetIntegers(GetName(), defaultValue));
+                SetValue(storage->GetValues(GetName(), defaultValue));
             }
 
             Array(const char* name)
@@ -31,7 +31,7 @@ namespace ntt
             }
 
             Array(const char* name, std::vector<T> defaultValue)
-                : name_(name), minValue_(0), maxValue_(100)
+                : name_(name), minValue_(0), maxValue_(100), storage_(nullptr)
             {
                 SetValue(defaultValue);
             }
@@ -40,7 +40,7 @@ namespace ntt
             {
                 if (storage_ != nullptr)
                 {
-                    storage_->SaveIntegers(GetName(), value_);
+                    storage_->SaveValues(GetName(), value_);
                 }
             }
 
@@ -49,22 +49,6 @@ namespace ntt
             std::vector<T> Value() { return value_; }
 
             void OnUpdate(Timestep ts, InputType type = NONE);
-            // {
-            //     switch (type)
-            //     {
-            //         case NONE:
-            //             break;
-            //         case INPUT:
-            //             ImGui::InputInt2(GetName(), &value_[0]);
-            //             break;
-            //         case SLIDER:
-            //             ImGui::SliderInt2(GetName(), &value_[0], minValue_, maxValue_);
-            //             break;
-                    
-            //         default:
-            //             break;
-            //     } 
-            // }
 
             void SetValue(std::vector<T> value)
             {

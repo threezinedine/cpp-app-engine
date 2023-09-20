@@ -2,23 +2,22 @@
 
 TEST_F(EngineDataTypeTest, FloatDataWillBeLoaded)
 {
-    storage_->SetGetFloatReturn("Speed", 4, 0);
-    storage_->IgnoreSetFloat("Speed");
+    storage_->SetGetValue("Speed", 4.0f, 0.0f);
 
-    ntt::Data<float> speed("Speed", 0, 0, 10, storage_);
+    ntt::Data<float> speed("Speed", 0.0f, 0.0f, 10.0f, storage_);
 
     EXPECT_THAT(speed.Value(), testing::Eq(4));
 }
 
 TEST_F(EngineDataTypeTest, FloatDataWillBeSavedWhenBeDeleted)
 {
-    storage_->SetGetFloatReturn("Speed", 4, 0);
-
-    EXPECT_CALL(*storage_, SaveFloat("Speed", 5)).Times(1);
+    storage_->SetGetValue("Speed", 4.0f, 0.0f);
 
     {
-        ntt::Data<float> speed("Speed", 0, 0, 10, storage_);
+        ntt::Data<float> speed("Speed", 0.0f, 0.0f, 10.0f, storage_);
 
         speed.SetValue(5);
     }
+
+    storage_->ExpectSaveValueFloatCall(1, "Speed", 5.0f);
 }

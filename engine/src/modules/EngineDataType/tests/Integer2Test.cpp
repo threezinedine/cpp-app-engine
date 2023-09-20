@@ -33,8 +33,7 @@ TEST_F(EngineDataTypeTest, Integer2ConstructorWithExceedLimitDefaultValue)
 TEST_F(EngineDataTypeTest, Integer2WithStorage)
 {
     std::vector<int> defaultValue { 1, 0 };
-    storage_->SetGetIntegersReturn("Scores", { 4, 3 }, defaultValue);
-    storage_->IgnoreSetIntegers("Scores");
+    storage_->SetGetValues("Scores", { 4, 3 }, defaultValue);
 
     {
         ntt::Array<int, 2> value("Scores", defaultValue, 0, 100, storage_);
@@ -46,8 +45,7 @@ TEST_F(EngineDataTypeTest, Integer2WithStorage)
 TEST_F(EngineDataTypeTest, Integer2InitializeViaStorageWithExceedLimits)
 {
     std::vector<int> defaultValue { 1, 0 };
-    storage_->SetGetIntegersReturn("Scores", { 104, 3 }, defaultValue);
-    storage_->IgnoreSetIntegers("Scores");
+    storage_->SetGetValues("Scores", { 104, 3 }, defaultValue);
 
     {
         ntt::Array<int, 2> value("Scores", defaultValue, 0, 100, storage_);
@@ -86,9 +84,7 @@ TEST_F(EngineDataTypeTest, Integer2SetValueWhichIsExceedTheLowLimits)
 TEST_F(EngineDataTypeTest, Integer2SavingWhenBeDeleted)
 {
     std::vector<int> defaultValue { 0, 0 };
-    storage_->SetGetIntegersReturn("Scores", { 2, 3 }, defaultValue);
-
-    EXPECT_CALL(*storage_, SaveIntegers("Scores", std::vector<int>{ 1, 1 })).Times(1);
+    storage_->SetGetValues("Scores", { 2, 3 }, defaultValue);
 
     {
         ntt::Array<int, 2> value("Scores", defaultValue, 0, 100, storage_);
@@ -96,6 +92,7 @@ TEST_F(EngineDataTypeTest, Integer2SavingWhenBeDeleted)
         value.SetValue({ 1, 1 });
     }
 
+    storage_->ExpectSaveValuesIntCall(1, "Scores", { 1, 1 });
 }
 
 TEST_F(EngineDataTypeTest, Integer2WithInValidSetValue)

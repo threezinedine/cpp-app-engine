@@ -3,33 +3,43 @@
 
 namespace ntt
 {
-    void DataStorage::SaveInteger(const char* name, int value)
+    void DataStorage::SaveValue(const char* name, int value)
     {
 
     }
 
-    int DataStorage::GetInteger(const char* name, int defaultValue)
+    void DataStorage::SaveValue(const char* name, float value)
+    {
+
+    }
+
+    int DataStorage::GetValue(const char* name, int defaultValue)
     {
         return defaultValue;
     }
 
-    void DataStorage::SaveIntegers(const char* name, std::vector<int> value)
-    {
-
-    }
-
-    std::vector<int> DataStorage::GetIntegers(const char* name, std::vector<int> defaultValue)
+    float DataStorage::GetValue(const char* name, float defaultValue)
     {
         return defaultValue;
     }
 
-    void DataStorage::SaveFloat(const char* name, float value)
+    void DataStorage::SaveValues(const char* name, std::vector<int> value)
     {
 
     }
 
-    float DataStorage::GetFloat(const char* name, float defaultValue)
+    void DataStorage::SaveValues(const char* name, std::vector<float> value)
     {
-        return defaultValue; 
+
+    }
+
+    std::vector<int> DataStorage::GetValues(const char* name, std::vector<int> defaultValue)
+    {
+        return defaultValue;
+    }
+
+    std::vector<float> DataStorage::GetValues(const char* name, std::vector<float> defaultValue)
+    {
+        return defaultValue;
     }
 } // namespace ntt

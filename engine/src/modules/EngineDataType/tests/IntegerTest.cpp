@@ -44,8 +44,7 @@ TEST_F(EngineDataTypeTest, IntegerConstructorWithDefaultValueExceedTheLimits)
 
 TEST_F(EngineDataTypeTest, GivenAnIntegerWithStorageThenBeSavedWhenDeleted)
 {
-    storage_->SetGetIntegerReturn("Scores", 2, 4);
-    storage_->IgnoreSetInteger("Scores");
+    storage_->SetGetValue("Speed", 2, 4);
 
     ntt::Data<int> value("Scores", 4, 0, 100, storage_);
 
@@ -70,19 +69,19 @@ TEST_F(EngineDataTypeTest, TestIntegerChangeValueLessThanMin)
 
 TEST_F(EngineDataTypeTest, SaveValueWhenBeDeleted)
 {
-    storage_->SetGetIntegerReturn("Scores", 2, 4);
-    EXPECT_CALL(*storage_, SaveInteger("Scores", 3));
+    storage_->SetGetValue("Scores", 2, 4);
 
     {
         ntt::Data<int> value("Scores", 4, 0, 100, storage_);
         value.SetValue(3);
     }
+
+    storage_->ExpectSaveValueIntCall(1, "Scores", 3);
 }
 
 TEST_F(EngineDataTypeTest, GetDataWithExceedTheLimits)
 {
-    storage_->SetGetIntegerReturn("Scores", 101, 4);
-    storage_->IgnoreSetInteger("Scores");
+    storage_->SetGetValue("Scores", 101, 4);
 
     ntt::Data<int> value("Scores", 4, 0, 100, storage_);
 
@@ -91,8 +90,7 @@ TEST_F(EngineDataTypeTest, GetDataWithExceedTheLimits)
 
 TEST_F(EngineDataTypeTest, GetDataWithLessThanTheLimit)
 {
-    storage_->SetGetIntegerReturn("Scores", 3, 10);
-    storage_->IgnoreSetInteger("Scores");
+    storage_->SetGetValue("Scores", 3, 10);
 
     ntt::Data<int> value("Scores", 10, 10, 100, storage_);
 

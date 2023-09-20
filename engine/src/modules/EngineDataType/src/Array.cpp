@@ -3,6 +3,7 @@
 
 namespace ntt
 {
+
     template<>
     void Array<int, 2>::OnUpdate(Timestep ts, InputType type)
     {
