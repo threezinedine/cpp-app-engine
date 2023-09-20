@@ -28,20 +28,9 @@ namespace ntt
                 SetValue(defaultValue);
             }
 
-            Data(const char* name, T defaultValue, T minValue, T maxValue, Ref<DataStorage> storage)
-                : name_(name), minValue_(minValue), 
-                    maxValue_(maxValue), storage_(storage)
-            {
-                SetValue(storage_->GetInteger(GetName(), defaultValue));
-            }
+            Data(const char* name, T defaultValue, T minValue, T maxValue, Ref<DataStorage> storage);
 
-            ~Data()
-            {
-                if (storage_ != nullptr)
-                {
-                    storage_->SaveInteger(GetName(), value_);
-                }
-            }
+            ~Data();
 
             inline const char* GetName() const { return name_; }
 

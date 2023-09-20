@@ -1,6 +1,4 @@
 #include "PreInclude.hpp"
-#include "EngineDataTypeTest.hpp"
-#include "EngineDataType/EngineDataType.hpp"
 
 
 TEST_F(EngineDataTypeTest, GivenIntegerVec4ThenItHasTheSamePropertiesAndMethodLikeTheInteger)

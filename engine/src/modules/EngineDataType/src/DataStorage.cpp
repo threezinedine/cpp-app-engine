@@ -22,4 +22,14 @@ namespace ntt
     {
         return defaultValue;
     }
+
+    void DataStorage::SaveFloat(const char* name, float value)
+    {
+
+    }
+
+    float DataStorage::GetFloat(const char* name, float defaultValue)
+    {
+        return defaultValue; 
+    }
 } // namespace ntt
