@@ -56,6 +56,23 @@ namespace ntt
     }
 
     template<>
+    void Array<float, 2>::OnUpdate(Timestep ts, InputType type)
+    {
+        switch (type)
+        {
+            case INPUT:
+                ImGui::InputFloat3(GetName(), &value_[0]);
+                break;
+            case SLIDER:
+                ImGui::SliderFloat3(GetName(), &value_[0], minValue_, maxValue_);
+                break;
+            
+            default:
+                break; 
+        }
+    }
+
+    template<>
     void Array<float, 3>::OnUpdate(Timestep ts, InputType type)
     {
         switch (type)

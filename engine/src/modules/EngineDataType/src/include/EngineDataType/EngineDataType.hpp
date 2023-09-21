@@ -5,3 +5,5 @@
 
 #include "Data.hpp"
 #include "Array.hpp"
+
+#include "Bool.hpp"

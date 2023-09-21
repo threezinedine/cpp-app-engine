@@ -13,7 +13,8 @@ class TestWindow: public ntt::ImGuiWindow
                 position3D_("Position 3D", { 0, 0, 0 }, 10, 300),
                 color_("Color", { 0, 0, 0, 0 }, 0, 255),
                 speed_("Speed", 0, 0, 10),
-                color3_("Color3", { 0, 0, 0 }, 0.0f, 1.0f)
+                color3_("Color3", { 0, 0, 0 }, 0.0f, 1.0f),
+                getData_("GetData")
         {
 
         }
@@ -35,6 +36,9 @@ class TestWindow: public ntt::ImGuiWindow
             color3_.OnUpdate(ts, ntt::COLOR_PICKER);
 
             ImGui::Text(color3_.ToString().c_str());
+
+            getData_.OnUpdate(ts);
+            ImGui::Text(getData_.ToString().c_str());
         }
 
     private:
@@ -44,6 +48,7 @@ class TestWindow: public ntt::ImGuiWindow
         ntt::Array<int, 3> position3D_;
         ntt::Array<int, 4> color_;
         ntt::Array<float, 3> color3_;
+        ntt::Bool getData_;
 };
 
 

@@ -13,6 +13,11 @@ namespace ntt
 
     }
 
+    void DataStorage::SaveValue(const char* name, bool value)
+    {
+
+    }
+
     int DataStorage::GetValue(const char* name, int defaultValue)
     {
         return defaultValue;
@@ -21,6 +26,11 @@ namespace ntt
     float DataStorage::GetValue(const char* name, float defaultValue)
     {
         return defaultValue;
+    }
+
+    bool DataStorage::GetValue(const char* name)
+    {
+        return false;
     }
 
     void DataStorage::SaveValues(const char* name, std::vector<int> value)

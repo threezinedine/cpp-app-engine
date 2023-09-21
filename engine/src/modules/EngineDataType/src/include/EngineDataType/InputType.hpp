@@ -9,5 +9,7 @@ namespace ntt
         INPUT,
         SLIDER,
         COLOR_PICKER,
+
+        CHECK_BOX,
     }; 
 } // namespace ntt

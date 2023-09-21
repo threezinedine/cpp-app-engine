@@ -52,6 +52,27 @@ class DataStorageMocking: public ntt::DataStorage
 
 
         // -------------------- BEGIN ----------------------- 
+        // Save value for bool
+        void SaveValue(const char* name, bool value) override
+        {
+            saveValue_bool_call_counts_++;
+            saveValue_bool_Name_ = name;
+            saveValue_bool_Value_ = value;
+        }
+        int saveValue_bool_call_counts_ = 0;
+        const char* saveValue_bool_Name_;
+        bool saveValue_bool_Value_;
+
+        void ExpectSaveValueBoolCall(int times, const char* expectName, bool value)
+        {
+            EXPECT_THAT(saveValue_bool_Name_, testing::StrEq(expectName));
+            EXPECT_THAT(saveValue_bool_call_counts_, testing::Eq(times));
+            EXPECT_THAT(saveValue_bool_Value_, testing::Eq(value));
+        }
+        // --------------------  END  ----------------------- 
+
+
+        // -------------------- BEGIN ----------------------- 
         // Get value for int
         int GetValue(const char* name, int defaultValue) override
         {
@@ -97,6 +118,21 @@ class DataStorageMocking: public ntt::DataStorage
         {
             getValue_float_returnValue_ = value;
             getValue_float_defaultValue = defaultValue;
+        }
+        // --------------------  END  ----------------------- 
+
+        // -------------------- BEGIN ----------------------- 
+        // Get value for bool
+        bool GetValue(const char* name) override
+        {
+            return getValue_bool_returnValue_;
+        }
+
+        bool getValue_bool_returnValue_ = false;
+
+        void SetGetValue(const char* name, bool value)
+        {
+            getValue_bool_returnValue_ = value;
         }
         // --------------------  END  ----------------------- 
 
