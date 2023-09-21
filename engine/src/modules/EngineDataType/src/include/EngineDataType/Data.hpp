@@ -51,7 +51,15 @@ namespace ntt
 
             void SetValue(T value)
             {
-                value_ = GetValid(value, minValue_, maxValue_);
+                value_ = GetValid<T>(value, minValue_, maxValue_);
+            }
+
+            std::string ToString()
+            {
+                std::stringstream ss;
+
+                ss << GetName() << ": " << value_;
+                return ss.str();
             }
 
         private:

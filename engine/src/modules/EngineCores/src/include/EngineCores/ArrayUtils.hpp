@@ -3,7 +3,13 @@
 
 namespace ntt
 {
-    int GetValid(int value, int min, int max);
+    template <typename T>
+    T GetValid(T value, T min, T max)
+    {
+        if (value < min) return min;
+        if (value > max) return max;
+        return value;
+    }
 
     template <typename T>
     bool VectorsEqual(std::vector<T> vec1, std::vector<T> vec2)

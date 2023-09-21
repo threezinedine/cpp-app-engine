@@ -103,3 +103,10 @@ TEST_F(EngineDataTypeTest, Integer2WithInValidSetValue)
 
     EXPECT_THAT(value.Value(), testing::ElementsAre(1, 0));
 }
+
+TEST_F(EngineDataTypeTest, Integer2ToString)
+{
+    ntt::Array<int, 2> value ("Scores", { 1, 4 });
+
+    EXPECT_THAT(value.ToString(), testing::Eq("Scores: (1, 4)"));
+}

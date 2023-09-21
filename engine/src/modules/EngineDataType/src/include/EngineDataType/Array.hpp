@@ -56,10 +56,25 @@ namespace ntt
 
                 for (int i=0; i<value.size(); i++)
                 {
-                    value[i] = GetValid(value[i], minValue_, maxValue_);
+                    value[i] = GetValid<T>(value[i], minValue_, maxValue_);
                 }
 
                 value_ = value;
+            }
+
+            std::string ToString()
+            {
+                std::stringstream ss;
+
+                ss << GetName() << ": " << "(";
+
+                for (int i=0; i<N-1; i++)
+                {
+                    ss << value_[i] << ", ";
+                }
+
+                ss << value_[N-1] << ")";
+                return ss.str();
             }
 
         private:

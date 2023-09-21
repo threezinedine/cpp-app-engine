@@ -96,3 +96,10 @@ TEST_F(EngineDataTypeTest, GetDataWithLessThanTheLimit)
 
     EXPECT_THAT(value.Value(), testing::Eq(10));
 }
+
+TEST_F(EngineDataTypeTest, DataToString)
+{
+    ntt::Data<int> value("Scores", 10);
+
+    EXPECT_THAT(value.ToString(), testing::StrEq("Scores: 10"));
+}
