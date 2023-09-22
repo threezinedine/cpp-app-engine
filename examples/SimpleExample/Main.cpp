@@ -14,7 +14,8 @@ class TestWindow: public ntt::ImGuiWindow
                 color_("Color", { 0, 0, 0, 0 }, 0, 255),
                 speed_("Speed", 0, 0, 10),
                 color3_("Color3", { 0, 0, 0 }, 0.0f, 1.0f),
-                getData_("GetData")
+                getData_("GetData"),
+                name_("Name")
         {
 
         }
@@ -39,6 +40,9 @@ class TestWindow: public ntt::ImGuiWindow
 
             getData_.OnUpdate(ts);
             ImGui::Text(getData_.ToString().c_str());
+
+            name_.OnUpdate(ts, ntt::INPUT);
+            ImGui::Text(name_.ToString().c_str());
         }
 
     private:
@@ -49,6 +53,7 @@ class TestWindow: public ntt::ImGuiWindow
         ntt::Array<int, 4> color_;
         ntt::Array<float, 3> color3_;
         ntt::Bool getData_;
+        ntt::String<5> name_;
 };
 
 
