@@ -73,6 +73,26 @@ class DataStorageMocking: public ntt::DataStorage
 
 
         // -------------------- BEGIN ----------------------- 
+        // Save value for string
+        void SaveValue(const char* name, std::string value) override
+        {
+            saveValue_string_call_counts_++;
+            saveValue_string_Name_ = name;
+            saveValue_string_Value_ = value;
+        }
+        int saveValue_string_call_counts_ = 0;
+        const char* saveValue_string_Name_;
+        std::string saveValue_string_Value_;
+
+        void ExpectSaveValueStringCall(int times, const char* expectName, std::string value)
+        {
+            EXPECT_THAT(saveValue_string_Name_, testing::StrEq(expectName));
+            EXPECT_THAT(saveValue_string_call_counts_, testing::Eq(times));
+            EXPECT_THAT(saveValue_string_Value_, testing::Eq(value));
+        }
+        // --------------------  END  ----------------------- 
+
+        // -------------------- BEGIN ----------------------- 
         // Get value for int
         int GetValue(const char* name, int defaultValue) override
         {
@@ -133,6 +153,30 @@ class DataStorageMocking: public ntt::DataStorage
         void SetGetValue(const char* name, bool value)
         {
             getValue_bool_returnValue_ = value;
+        }
+        // --------------------  END  ----------------------- 
+
+        // -------------------- BEGIN ----------------------- 
+        // Get value for string
+        std::string GetValue(const char* name, std::string defaultValue) override
+        {
+            if(defaultValue == getValue_string_defaultValue)
+            {
+                return getValue_string_returnValue_;
+            }
+            else 
+            {
+                return getValue_string_defaultValue;
+            }
+        }
+
+        std::string getValue_string_returnValue_ = "";
+        std::string getValue_string_defaultValue = "";
+
+        void SetGetValue(const char* name, std::string value, std::string defaultValue)
+        {
+            getValue_string_returnValue_ = value;
+            getValue_string_defaultValue = defaultValue;
         }
         // --------------------  END  ----------------------- 
 
