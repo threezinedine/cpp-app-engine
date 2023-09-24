@@ -10,4 +10,4 @@
 	branch = docking
 [submodule "engine/src/modules/EngineImGuiComponents/vendors/file-dialog"]
 	path = engine/src/modules/EngineImGuiComponents/vendors/file-dialog
-	url = https://github.com/aiekick/ImGuiFileDialog.git
+	url = https://github.com/threezinedine/ImGuiFileDialog.git

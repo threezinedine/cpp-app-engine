@@ -10,6 +10,8 @@ namespace ntt
         SLIDER,
         COLOR_PICKER,
 
+        FILE_DIALOG,
+
         CHECK_BOX,
 
         WITH_CHOICES,
