@@ -1,1 +1,1 @@
-add_subdirectory(./file-dialog)
+add_subdirectory(./ntt-file-dialog)
