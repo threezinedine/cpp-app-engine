@@ -4,6 +4,8 @@
 #include "InputType.hpp"
 #include "EngineCores/EngineCores.hpp"
 #include "DataTypeBase.hpp"
+#include "EngineImGuiComponents/EngineImGuiComponents.hpp"
+#include "StringDataType.hpp"
 
 
 namespace ntt
@@ -17,7 +19,7 @@ namespace ntt
     };
 
     template <int N>
-    class String: public DataTypeBase
+    class String: public DataTypeBase, StringDataType
     {
         public:
             String(const char* name)
@@ -94,6 +96,14 @@ namespace ntt
                             ImGui::Unindent();
                         }
                         break;
+                    case FILE_DIALOG:
+                        if (fileDialog_ == nullptr)
+                        {
+                            fileDialog_ = FileDialog::CreateScope(this);
+                        }
+
+                        fileDialog_->OnUpdate();
+                        break;
                     
                     default:
                         break;
@@ -110,5 +120,6 @@ namespace ntt
         private:
             char value_[N+1];
             Ref<DataStorage> storage_;
+            Scope<FileDialog> fileDialog_;
     }; 
 } // namespace ntt

@@ -46,7 +46,7 @@ class TestWindow: public ntt::ImGuiWindow
             ImGui::Text(getData_.ToString().c_str());
 
             ntt::StringOptions options{ .choices = { "Hello", "Test" } };
-            name_.OnUpdate(ts, ntt::WITH_CHOICES, (void*)&options);
+            name_.OnUpdate(ts, ntt::FILE_DIALOG);
             ImGui::Text(name_.ToString().c_str());
         }
 
@@ -58,7 +58,7 @@ class TestWindow: public ntt::ImGuiWindow
         ntt::Array<int, 4> color_;
         ntt::Array<float, 3> color3_;
         ntt::Bool getData_;
-        ntt::String<5> name_;
+        ntt::String<256> name_;
 };
 
 

@@ -31,4 +31,5 @@ target_link_libraries(
     EngineExceptions
     EngineCores
     EngineDataType
+    EngineImGuiComponents
 )

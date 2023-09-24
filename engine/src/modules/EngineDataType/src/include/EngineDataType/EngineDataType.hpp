@@ -7,4 +7,6 @@
 #include "Array.hpp"
 
 #include "Bool.hpp"
+
+#include "StringDataType.hpp"
 #include "String.hpp"
