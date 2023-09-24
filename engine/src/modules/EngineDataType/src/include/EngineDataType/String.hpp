@@ -16,6 +16,7 @@ namespace ntt
     struct StringOptions
     {
         std::vector<std::string> choices;
+        FileDialogOptions fileOpts; 
     };
 
     template <int N>
@@ -68,6 +69,11 @@ namespace ntt
             void OnUpdate(Timestep ts, InputType type, void* args = nullptr)
             {
                 std::stringstream title;
+                StringOptions* opts;
+                if (args != nullptr)
+                {
+                    opts = static_cast<StringOptions*>(args);
+                }
 
                 switch (type)
                 {
@@ -78,8 +84,6 @@ namespace ntt
                         title << GetName() << ": Choose an option";
                         if (args != nullptr)
                         {
-                            StringOptions* opts = static_cast<StringOptions*>(args);
-
                             ImGui::Text(title.str().c_str());
                             ImGui::Indent();
                             if (opts->choices.size() != 0)
@@ -102,7 +106,14 @@ namespace ntt
                             fileDialog_ = FileDialog::CreateScope(this);
                         }
 
-                        fileDialog_->OnUpdate();
+                        if (args != nullptr)
+                        {
+                            fileDialog_->OnUpdate(opts->fileOpts);
+                        }
+                        else 
+                        {
+                            fileDialog_->OnUpdate();
+                        }
                         break;
                     
                     default:

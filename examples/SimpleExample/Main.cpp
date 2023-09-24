@@ -45,8 +45,8 @@ class TestWindow: public ntt::ImGuiWindow
             getData_.OnUpdate(ts);
             ImGui::Text(getData_.ToString().c_str());
 
-            ntt::StringOptions options{ .choices = { "Hello", "Test" } };
-            name_.OnUpdate(ts, ntt::FILE_DIALOG);
+            ntt::StringOptions options{ .fileOpts = { .types = ".hpp,.cpp,.h", .title = "Choose image file" } };
+            name_.OnUpdate(ts, ntt::FILE_DIALOG, (void*)&options);
             ImGui::Text(name_.ToString().c_str());
         }
 

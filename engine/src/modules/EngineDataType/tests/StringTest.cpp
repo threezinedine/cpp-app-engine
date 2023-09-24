@@ -1,4 +1,5 @@
 #include "PreInclude.hpp"
+#include "EngineDataType/String.hpp"
 
 
 TEST_F(EngineDataTypeTest, InitializeStringData)

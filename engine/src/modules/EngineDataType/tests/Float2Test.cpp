@@ -1,4 +1,5 @@
 #include "PreInclude.hpp"
+#include "EngineDataType/Array.hpp"
 
 
 TEST_F(EngineDataTypeTest, FloatValuesAreLoaded)

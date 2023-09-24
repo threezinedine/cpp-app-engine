@@ -1,4 +1,5 @@
 #include "PreInclude.hpp"
+#include "EngineDataType/Bool.hpp"
 
 
 TEST_F(EngineDataTypeTest, BoolIsInitialize)

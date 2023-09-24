@@ -1,10 +1,17 @@
 #pragma once
 
+#include <string>
 #include "EngineCores/EngineCores.hpp"
 
 namespace ntt
 {
     class StringDataType;
+    
+    struct FileDialogOptions
+    {
+        std::string types = "*";
+        std::string title = "Choose File";
+    };
 
     class FileDialog
     {
@@ -13,7 +20,7 @@ namespace ntt
 
             ~FileDialog();
 
-            void OnUpdate();
+            void OnUpdate(FileDialogOptions options = FileDialogOptions());
 
             static Scope<FileDialog> CreateScope(StringDataType* value)
             {

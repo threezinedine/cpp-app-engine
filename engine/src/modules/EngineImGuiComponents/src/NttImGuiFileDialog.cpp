@@ -16,11 +16,15 @@ namespace ntt
 
     }
 
-    void FileDialog::OnUpdate()
+    void FileDialog::OnUpdate(FileDialogOptions options)
     {
         if (ImGui::Button("Choose a file")) 
         {
-            ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDlgKey", "Choose File", ".cpp,.h,.hpp", ".");
+            ImGuiFileDialog::Instance()->OpenDialog(
+                    "ChooseFileDlgKey", 
+                    options.title, 
+                    options.types.c_str(), 
+                    ".");
         }
 
         if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey")) 
