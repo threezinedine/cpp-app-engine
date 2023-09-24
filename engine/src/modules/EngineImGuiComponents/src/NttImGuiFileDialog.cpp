@@ -16,8 +16,10 @@ namespace ntt
 
     }
 
-    void FileDialog::OnUpdate(FileDialogOptions options)
+    bool FileDialog::OnUpdate(FileDialogOptions options)
     {
+        bool result = false;
+
         if (ImGui::Button("Choose a file")) 
         {
             ImGuiFileDialog::Instance()->OpenDialog(
@@ -35,9 +37,12 @@ namespace ntt
                 std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
 
                 value_->SetValue(filePathName);
+                result = true;
             }
             
             ImGuiFileDialog::Instance()->Close();
         }
+
+        return result;
     }
 } // namespace ntt

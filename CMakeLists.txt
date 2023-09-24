@@ -5,5 +5,8 @@ project(
     VERSION 1.0.1
 )
 
+find_package(OpenCV REQUIRED 
+                PATHS C:/Users/Acer/C_Language/C++/CPlusPlusLibs/opencv/build)
+
 add_subdirectory(./engine)
 add_subdirectory(./examples)

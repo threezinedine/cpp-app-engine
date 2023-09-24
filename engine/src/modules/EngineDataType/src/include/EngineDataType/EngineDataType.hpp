@@ -10,3 +10,5 @@
 
 #include "StringDataType.hpp"
 #include "String.hpp"
+
+#include "Image.hpp"

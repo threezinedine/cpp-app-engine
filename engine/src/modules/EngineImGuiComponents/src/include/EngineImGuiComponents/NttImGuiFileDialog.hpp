@@ -20,7 +20,7 @@ namespace ntt
 
             ~FileDialog();
 
-            void OnUpdate(FileDialogOptions options = FileDialogOptions());
+            bool OnUpdate(FileDialogOptions options = FileDialogOptions());
 
             static Scope<FileDialog> CreateScope(StringDataType* value)
             {

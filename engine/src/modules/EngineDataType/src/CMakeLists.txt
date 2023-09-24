@@ -18,6 +18,7 @@ target_include_directories(
     ${PROJECT_NAME}
     PUBLIC
     ./include
+    ${OpenCV_INCLUDE_DIRS}
 )
 
 target_link_libraries(
@@ -26,4 +27,5 @@ target_link_libraries(
     EngineCores
     ImGui
     EngineImGuiComponents
+    ${OpenCV_LIBS}
 )
