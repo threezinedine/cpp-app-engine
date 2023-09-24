@@ -11,5 +11,7 @@ namespace ntt
         COLOR_PICKER,
 
         CHECK_BOX,
+
+        WITH_CHOICES,
     }; 
 } // namespace ntt

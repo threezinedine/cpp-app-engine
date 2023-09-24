@@ -6,30 +6,36 @@
 namespace ntt
 {
     template <typename T>
-    class Data
+    struct DataOptions
+    {
+        std::vector<std::pair<std::string, T>> choices;
+    };
+
+    template <typename T>
+    class Data: public DataTypeBase
     {
         public:
             Data(const char* name)
-                : name_(name), value_(0), minValue_(0), maxValue_(100), storage_(nullptr)
+                : DataTypeBase(name), value_(0), minValue_(0), maxValue_(100), storage_(nullptr)
             {
 
             }
 
             Data(const char* name, T defaultValue)
-                : name_(name), minValue_(0), maxValue_(100), storage_(nullptr)
+                : DataTypeBase(name), minValue_(0), maxValue_(100), storage_(nullptr)
             {
                 SetValue(defaultValue);
             }
 
             Data(const char* name, T defaultValue, T minValue, T maxValue)
-                : name_(name), minValue_(minValue), 
+                : DataTypeBase(name), minValue_(minValue), 
                     maxValue_(maxValue), storage_(nullptr)
             {
                 SetValue(defaultValue);
             }
 
             Data(const char* name, T defaultValue, T minValue, T maxValue, Ref<DataStorage> storage)
-                : name_(name), minValue_(minValue), 
+                : DataTypeBase(name), minValue_(minValue), 
                     maxValue_(maxValue), storage_(storage)
             {
                 SetValue(storage_->GetValue(GetName(), defaultValue));
@@ -43,18 +49,16 @@ namespace ntt
                 }
             }
 
-            inline const char* GetName() const { return name_; }
-
             T Value() { return value_; }
 
-            void OnUpdate(Timestep ts, InputType type = NONE);
+            void OnUpdate(Timestep ts, InputType type = NONE, void* args = nullptr);
 
             void SetValue(T value)
             {
                 value_ = GetValid<T>(value, minValue_, maxValue_);
             }
 
-            std::string ToString()
+            std::string ToString() const
             {
                 std::stringstream ss;
 
@@ -63,7 +67,6 @@ namespace ntt
             }
 
         private:
-            const char* name_;
             T value_;
             T minValue_;
             T maxValue_;

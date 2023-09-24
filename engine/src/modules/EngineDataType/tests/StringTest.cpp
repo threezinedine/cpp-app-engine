@@ -93,3 +93,12 @@ TEST_F(EngineDataTypeTest, InitializeStringWithStorageReturnsExceedLengthLimit)
 
     EXPECT_THAT(str.Value(), testing::StrEq("sto"));
 }
+
+TEST_F(EngineDataTypeTest, StringOnUpdateWithChoices)
+{
+    ntt::Timestep ts;
+    ntt::String<7> str("String");
+    ntt::StringOptions options{ .choices = std::vector<std::string> { "Hello", "Test" } };
+
+    EXPECT_NO_THROW(str.OnUpdate(ts, ntt::NONE, (void*)&options));
+}

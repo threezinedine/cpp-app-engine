@@ -6,24 +6,24 @@
 namespace ntt
 {
     Bool::Bool(const char* name)
-        : name_(name), value_(false), storage_(nullptr)
+        : DataTypeBase(name), value_(false), storage_(nullptr)
     {
 
     }
 
     Bool::Bool(const char* name, bool value)
-        : name_(name), value_(value), storage_(nullptr)
+        : DataTypeBase(name), value_(value), storage_(nullptr)
     {
 
     }
 
     Bool::Bool(const char* name, Ref<DataStorage> storage)
-        : name_(name), storage_(storage)
+        : DataTypeBase(name), storage_(storage)
     {
         value_ = storage_->GetValue(GetName());
     }
 
-    void Bool::OnUpdate(Timestep ts, InputType type)
+    void Bool::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -54,7 +54,7 @@ namespace ntt
         value_ = value;
     }
 
-    std::string Bool::ToString()
+    std::string Bool::ToString() const
     {
         std::stringstream ss;
         ss << GetName() << ": ";

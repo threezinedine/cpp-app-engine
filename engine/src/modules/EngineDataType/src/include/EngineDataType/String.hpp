@@ -3,6 +3,7 @@
 #include <string>
 #include "InputType.hpp"
 #include "EngineCores/EngineCores.hpp"
+#include "DataTypeBase.hpp"
 
 
 namespace ntt
@@ -10,24 +11,29 @@ namespace ntt
     class Timestep;
     class DataStorage;
 
+    struct StringOptions
+    {
+        std::vector<std::string> choices;
+    };
+
     template <int N>
-    class String
+    class String: public DataTypeBase
     {
         public:
             String(const char* name)
-                : name_(name), value_("")
+                : DataTypeBase(name), value_("")
             {
 
             } 
 
             String(const char* name, std::string defaultValue)
-                : name_(name)
+                : DataTypeBase(name)
             {
                 SetValue(defaultValue);
             }
 
             String(const char* name, Ref<DataStorage> storage)
-                : name_(name) , storage_(storage)
+                : DataTypeBase(name) , storage_(storage)
             {
                 SetValue(storage_->GetValue(GetName(), ""));
             }
@@ -57,30 +63,51 @@ namespace ntt
                 }
             }
                 
-            void OnUpdate(Timestep ts, InputType type)
+            void OnUpdate(Timestep ts, InputType type, void* args = nullptr)
             {
+                std::stringstream title;
+
                 switch (type)
                 {
-                case INPUT:
-                    ImGui::InputText(GetName(), value_, N+1);
-                    break;
-                
-                default:
-                    break;
+                    case INPUT:
+                        ImGui::InputText(GetName(), value_, N+1);
+                        break;
+                    case WITH_CHOICES:
+                        title << GetName() << ": Choose an option";
+                        if (args != nullptr)
+                        {
+                            StringOptions* opts = static_cast<StringOptions*>(args);
+
+                            ImGui::Text(title.str().c_str());
+                            ImGui::Indent();
+                            if (opts->choices.size() != 0)
+                            {
+                                for (int i=0; i<opts->choices.size(); i++)
+                                {
+                                    std::string option = opts->choices[i];
+                                    if (ImGui::Selectable(option.c_str(), option == value_))
+                                    {
+                                        SetValue(option);
+                                    }
+                                }
+                            }
+                            ImGui::Unindent();
+                        }
+                        break;
+                    
+                    default:
+                        break;
                 }
             }
 
-            std::string ToString()
+            std::string ToString() const
             {
                 std::stringstream ss;
                 ss << GetName() << ": " << value_;
                 return ss.str();
             }
 
-            inline const char* GetName() const { return name_; }
-
         private:
-            const char* name_;
             char value_[N+1];
             Ref<DataStorage> storage_;
     }; 

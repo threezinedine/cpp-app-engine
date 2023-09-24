@@ -2,6 +2,7 @@
 #include <string>
 #include "EngineCores/EngineCores.hpp"
 #include "InputType.hpp"
+#include "DataTypeBase.hpp"
 
 
 namespace ntt
@@ -9,7 +10,7 @@ namespace ntt
     class DataStorage;
     class Timestep;
 
-    class Bool
+    class Bool: public DataTypeBase
     {
         public:
             Bool(const char* name);
@@ -17,16 +18,14 @@ namespace ntt
             Bool(const char* name, Ref<DataStorage> storage);
             ~Bool();
 
-            inline const char* GetName() const { return name_; }
             bool Value();
 
-            void OnUpdate(Timestep ts, InputType type = CHECK_BOX);
+            void OnUpdate(Timestep ts, InputType type = CHECK_BOX, void* args = nullptr);
             void SetValue(bool value);
 
-            std::string ToString();
+            std::string ToString() const;
 
         private:
-            const char* name_;
             bool value_;
             Ref<DataStorage> storage_;
     };

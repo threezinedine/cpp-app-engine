@@ -5,7 +5,7 @@ namespace ntt
 {
 
     template<>
-    void Array<int, 2>::OnUpdate(Timestep ts, InputType type)
+    void Array<int, 2>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -22,7 +22,7 @@ namespace ntt
     }
 
     template<>
-    void Array<int, 3>::OnUpdate(Timestep ts, InputType type)
+    void Array<int, 3>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -39,7 +39,7 @@ namespace ntt
     }
 
     template<>
-    void Array<int, 4>::OnUpdate(Timestep ts, InputType type)
+    void Array<int, 4>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -56,7 +56,7 @@ namespace ntt
     }
 
     template<>
-    void Array<float, 2>::OnUpdate(Timestep ts, InputType type)
+    void Array<float, 2>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -73,7 +73,7 @@ namespace ntt
     }
 
     template<>
-    void Array<float, 3>::OnUpdate(Timestep ts, InputType type)
+    void Array<float, 3>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -93,7 +93,7 @@ namespace ntt
     }
 
     template<>
-    void Array<float, 4>::OnUpdate(Timestep ts, InputType type)
+    void Array<float, 4>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {

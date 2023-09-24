@@ -2,40 +2,35 @@
 #include "EngineDataType/DataTypeBase.hpp"
 
 
-class DataTypeDerived: public ntt::DataTypeBase<int>
+struct DataTypeDerivedOptions
+{
+    int value;
+    float score;
+};
+
+
+class DataTypeDerived: public ntt::DataTypeBase
 {
     public:
         DataTypeDerived(const char* name)
-            : ntt::DataTypeBase<int>(name, 0)
+            : ntt::DataTypeBase(name)
         {
 
         }
 
-        DataTypeDerived(const char* name, int defaultValue)
-            : ntt::DataTypeBase<int>(name, defaultValue)
-        {
-            Initialize();
-        }
-
-        DataTypeDerived(const char* name, ntt::Ref<ntt::DataStorage> storage)
-            : ntt::DataTypeBase<int>(name, 0, storage)
-        {
-            Initialize();
-        }
-
-        ~DataTypeDerived()
+        ~DataTypeDerived() override
         {
 
         }
 
-        void OnUpdate(ntt::Timestep ts, ntt::InputType type) override
+        void OnUpdate(ntt::Timestep ts, ntt::InputType type, void* args = nullptr) override
         {
 
         }
 
-        void SetValue(int value) override
+        std::string ToString() const
         {
-            value_ = value;
+            return GetName();
         }
 };
 
@@ -47,20 +42,6 @@ TEST_F(EngineDataTypeTest, DataTypeBaseHasTheGetName)
     EXPECT_THAT(data.GetName(), testing::StrEq("Hello"));
 }
 
-TEST_F(EngineDataTypeTest, DataTypeBaseHasTheDefaultValueIsZero)
-{
-    DataTypeDerived data("Hello");
-
-    EXPECT_THAT(data.Value(), testing::Eq(0));
-}
-
-TEST_F(EngineDataTypeTest, DataTypeDerivedHasTheConstructorWithDefaultValueAsParam)
-{
-    DataTypeDerived data("Hello", 3);
-
-    EXPECT_THAT(data.Value(), testing::Eq(3));
-}
-
 TEST_F(EngineDataTypeTest, DataTypeDerivedWillHaveTheVirtualMethodForOnUpdate)
 {
     ntt::Timestep ts;
@@ -68,33 +49,25 @@ TEST_F(EngineDataTypeTest, DataTypeDerivedWillHaveTheVirtualMethodForOnUpdate)
 
     EXPECT_NO_THROW(data.OnUpdate(ts, ntt::NONE));
 }
+TEST_F(EngineDataTypeTest, DataTypeDerivedWithOptions)
+{
+    ntt::Timestep ts;
+    DataTypeDerivedOptions options { 3, 4.5f };
+    DataTypeDerived data("Hello");
 
-TEST_F(EngineDataTypeTest, DataTypeDerivedWithVirtualFuncSetValue)
+    EXPECT_NO_THROW(data.OnUpdate(ts, ntt::NONE, (void*)&options));
+}
+
+TEST_F(EngineDataTypeTest, DataTypeDerivedToString)
 {
     DataTypeDerived data("Hello");
 
-    data.SetValue(4);
-
-    EXPECT_THAT(data.Value(), testing::Eq(4));
+    EXPECT_THAT(data.ToString(), "Hello");
 }
 
-TEST_F(EngineDataTypeTest, DataTypeDerivedWithStorage)
+TEST_F(EngineDataTypeTest, DataTypeDerivedIsCouted)
 {
-    storage_->SetGetValue("Hello", 3, 0);
+    DataTypeDerived data("Hello");
 
-    DataTypeDerived data("Hello", storage_);
-
-    EXPECT_THAT(data.Value(), testing::Eq(3));
-}
-
-TEST_F(EngineDataTypeTest, DataTypeDerivedBeSavedWhenBeDeleted)
-{
-    storage_->SetGetValue("Hello", 3, 0);
-
-    {
-        DataTypeDerived data("Hello", storage_);
-        data.SetValue(10);
-    }
-
-    storage_->ExpectSaveValueIntCall(1, "Hello", 10);
+    EXPECT_NO_THROW(std::cout << data << std::endl);
 }

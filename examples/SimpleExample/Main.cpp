@@ -28,6 +28,10 @@ class TestWindow: public ntt::ImGuiWindow
             ImGui::ShowDemoWindow(&showWindow);
 
             scores_.OnUpdate(ts, ntt::SLIDER);
+
+            ntt::DataOptions<int> scoresOptions { .choices = { {"FIRST_CHILD", 1}, {"SECOND_CHILD", 3}}};
+            scores_.OnUpdate(ts, ntt::WITH_CHOICES, (void*)&scoresOptions);
+
             position_.OnUpdate(ts, ntt::SLIDER);
             position3D_.OnUpdate(ts, ntt::SLIDER);
             color_.OnUpdate(ts, ntt::SLIDER);
@@ -41,7 +45,8 @@ class TestWindow: public ntt::ImGuiWindow
             getData_.OnUpdate(ts);
             ImGui::Text(getData_.ToString().c_str());
 
-            name_.OnUpdate(ts, ntt::INPUT);
+            ntt::StringOptions options{ .choices = { "Hello", "Test" } };
+            name_.OnUpdate(ts, ntt::WITH_CHOICES, (void*)&options);
             ImGui::Text(name_.ToString().c_str());
         }
 
