@@ -62,20 +62,22 @@ namespace ntt
 
     bool Image::FromFile(std::string filePath)
     {
-        cv::Mat image = cv::imread(filePath);
-
-        if (image.empty())
+        if (FileExists(filePath))
         {
-            HERE();
-            return false;
-        }
-        else 
-        {
-            HERE();
-            cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
+            cv::Mat image = cv::imread(filePath);
+            if (image.empty())
+            {
+                return false;
+            }
+            else 
+            {
+                cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
 
-            SetValue(image);
-            return true;
+                SetValue(image);
+                return true;
+            }
         }
+
+        return false;
     }
 } // namespace ntt

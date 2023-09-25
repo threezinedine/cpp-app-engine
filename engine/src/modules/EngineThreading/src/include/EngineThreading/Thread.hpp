@@ -1,0 +1,26 @@
+#pragma once
+
+
+namespace ntt
+{
+    class Thread
+    {
+        public:
+            virtual void Start();
+            virtual void StartImpl() = 0;
+
+            virtual void Stop();
+            virtual void StopImpl() = 0;
+
+            virtual bool IsRunning() const;
+            virtual void SetRunning(bool running);
+
+            virtual void OnRun();
+            virtual void OnRunImpl() = 0;
+
+            long long MainLoop();
+
+        private:
+            bool isRunning_;
+    }; 
+} // namespace ntt
