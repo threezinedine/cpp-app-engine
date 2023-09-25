@@ -64,6 +64,7 @@ namespace ntt
 
     void ImGuiApplication::AppendWindow(Ref<ImGuiWindow> window)
     {
+        window->OnInit();
         imguiWindows_.push_back(window);
     }
 } // namespace ntt

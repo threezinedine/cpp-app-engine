@@ -20,7 +20,7 @@ namespace ntt
 
             bool Value();
 
-            void OnUpdate(Timestep ts, InputType type = CHECK_BOX, void* args = nullptr);
+            bool OnUpdate(Timestep ts, InputType type = CHECK_BOX, void* args = nullptr);
             void SetValue(bool value);
 
             std::string ToString() const;

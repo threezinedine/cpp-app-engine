@@ -15,12 +15,15 @@ add_library(
 )
 
 find_package(OpenGL REQUIRED)
+find_package(OpenCV REQUIRED)
 
 target_include_directories(
     ${PROJECT_NAME}
     PUBLIC
     ./include
+    ${OpenCV_INCLUDE_DIRS}
 )
+
 
 target_link_libraries(
     ${PROJECT_NAME}
@@ -31,4 +34,6 @@ target_link_libraries(
     glfw
     OpenGL::GL
     ImGui
+    libglew_static
+    ${OpenCV_LIBS}
 )

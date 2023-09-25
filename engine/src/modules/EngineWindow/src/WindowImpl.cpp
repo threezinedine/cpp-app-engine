@@ -1,3 +1,5 @@
+#include <GL/glew.h>
+#include <iostream>
 #include "EngineWindow/PreInclude.hpp"
 #include "EngineWindow/WindowImpl.hpp"
 #include "EngineCores/EngineCores.hpp"
@@ -5,6 +7,34 @@
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
+
+#include <opencv2/opencv.hpp>
+
+
+#define ERROR() CheckError(__FILE__, __LINE__)
+static void CheckError(const char* file, int line)
+{
+    GLenum error;
+    if ((error = glGetError()) != GL_NO_ERROR) {
+        switch (error) {
+            case GL_INVALID_ENUM:
+                std::cerr << "OpenGL Error (Enum) at " << file << ":" << line << ": GL_INVALID_ENUM" << std::endl;
+                break;
+            case GL_INVALID_VALUE:
+                std::cerr << "OpenGL Error (Value) at " << file << ":" << line << ": GL_INVALID_VALUE" << std::endl;
+                break;
+            case GL_INVALID_OPERATION:
+                std::cerr << "OpenGL Error (Operation) at " << file << ":" << line << ": GL_INVALID_OPERATION" << std::endl;
+                break;
+            case GL_OUT_OF_MEMORY:
+                std::cerr << "OpenGL Error (Memory) at " << file << ":" << line << ": GL_OUT_OF_MEMORY" << std::endl;
+                break;
+            default:
+                std::cerr << "OpenGL Error (Unknown) at " << file << ":" << line << ": Unknown error" << std::endl;
+                break;
+        }
+    }
+}
 
 
 namespace ntt
@@ -41,6 +71,7 @@ namespace ntt
     {
         if (!glfwInit())
         {
+            std::cout << "Here" << std::endl;
             exit(-1);
         }
 
@@ -55,11 +86,16 @@ namespace ntt
         }
 
         glfwMakeContextCurrent(window_);
+        ERROR();
 
-        glfwSetWindowCloseCallback(window_, [](GLFWwindow* window)
+        if (glewInit() != GLEW_OK)
         {
-            glfwSetWindowShouldClose(window, GLFW_TRUE);
-        });
+            std::cout << "Here";
+            glfwTerminate();
+            exit(-1);
+        }
+
+        ERROR();
     } 
 
     void WindowImpl::ImGuiBackendInit() 
@@ -77,6 +113,7 @@ namespace ntt
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+
     }
 
     void WindowImpl::OnUpdateEnd(Timestep ts)
@@ -99,6 +136,7 @@ namespace ntt
     {
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
+
     }
 
     bool WindowImpl::ShouldClose()

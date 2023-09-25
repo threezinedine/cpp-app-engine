@@ -26,7 +26,7 @@ namespace ntt
                     "ChooseFileDlgKey", 
                     options.title, 
                     options.types.c_str(), 
-                    ".");
+                    options.path);
         }
 
         if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey")) 

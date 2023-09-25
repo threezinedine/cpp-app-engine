@@ -9,6 +9,9 @@ file(
     ./*.cpp
 )
 
+find_package(OpenGL REQUIRED)
+
+
 add_library(
     ${PROJECT_NAME}
     STATIC
@@ -27,4 +30,7 @@ target_link_libraries(
     ImGui
     EngineDataType
     ImGuiFileDialog
+    glfw
+    OpenGL::GL
+    libglew_static
 )

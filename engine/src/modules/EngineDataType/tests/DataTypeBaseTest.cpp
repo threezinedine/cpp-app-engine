@@ -23,9 +23,9 @@ class DataTypeDerived: public ntt::DataTypeBase
 
         }
 
-        void OnUpdate(ntt::Timestep ts, ntt::InputType type, void* args = nullptr) override
+        bool OnUpdate(ntt::Timestep ts, ntt::InputType type, void* args = nullptr) override
         {
-
+            return true;
         }
 
         std::string ToString() const

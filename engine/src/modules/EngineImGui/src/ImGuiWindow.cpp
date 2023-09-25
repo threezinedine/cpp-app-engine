@@ -18,4 +18,9 @@ namespace ntt
         OnUpdateImpl(ts);
         ImGui::End();
     }
+
+    void ImGuiWindow::OnInit()
+    {
+
+    }
 } // namespace ntt

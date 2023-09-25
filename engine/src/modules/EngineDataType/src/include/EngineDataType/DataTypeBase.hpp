@@ -18,7 +18,7 @@ namespace ntt
 
             inline virtual const char* GetName() const { return name_; }
 
-            virtual void OnUpdate(Timestep ts, InputType type = NONE, void* args = nullptr) = 0;
+            virtual bool OnUpdate(Timestep ts, InputType type = NONE, void* args = nullptr) = 0;
             virtual std::string ToString() const = 0;
 
             friend std::ostream& operator<< (std::ostream& os, const DataTypeBase& obj)

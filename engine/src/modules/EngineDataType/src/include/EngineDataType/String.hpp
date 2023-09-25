@@ -66,7 +66,7 @@ namespace ntt
                 }
             }
                 
-            void OnUpdate(Timestep ts, InputType type, void* args = nullptr)
+            bool OnUpdate(Timestep ts, InputType type, void* args = nullptr)
             {
                 std::stringstream title;
                 StringOptions* opts;
@@ -78,7 +78,10 @@ namespace ntt
                 switch (type)
                 {
                     case INPUT:
-                        ImGui::InputText(GetName(), value_, N+1);
+                        if (ImGui::InputText(GetName(), value_, N+1))
+                        {
+                            return true;
+                        }
                         break;
                     case WITH_CHOICES:
                         title << GetName() << ": Choose an option";
@@ -94,6 +97,7 @@ namespace ntt
                                     if (ImGui::Selectable(option.c_str(), option == value_))
                                     {
                                         SetValue(option);
+                                        return true;
                                     }
                                 }
                             }
@@ -108,17 +112,19 @@ namespace ntt
 
                         if (args != nullptr)
                         {
-                            fileDialog_->OnUpdate(opts->fileOpts);
+                            return fileDialog_->OnUpdate(opts->fileOpts);
                         }
                         else 
                         {
-                            fileDialog_->OnUpdate();
+                            return fileDialog_->OnUpdate();
                         }
                         break;
                     
                     default:
                         break;
                 }
+
+                return false;
             }
 
             std::string ToString() const

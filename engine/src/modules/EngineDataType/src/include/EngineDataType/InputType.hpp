@@ -15,5 +15,6 @@ namespace ntt
         CHECK_BOX,
 
         WITH_CHOICES,
+        IMAGE,
     }; 
 } // namespace ntt

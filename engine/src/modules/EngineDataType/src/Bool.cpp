@@ -23,7 +23,7 @@ namespace ntt
         value_ = storage_->GetValue(GetName());
     }
 
-    void Bool::OnUpdate(Timestep ts, InputType type, void* args)
+    bool Bool::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -34,6 +34,7 @@ namespace ntt
             default:
                 break;
         }
+        return true;
     }
 
     Bool::~Bool()

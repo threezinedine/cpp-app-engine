@@ -5,7 +5,7 @@ namespace ntt
 {
 
     template<>
-    void Array<int, 2>::OnUpdate(Timestep ts, InputType type, void* args)
+    bool Array<int, 2>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -19,10 +19,11 @@ namespace ntt
             default:
                 break; 
         }
+        return true;
     }
 
     template<>
-    void Array<int, 3>::OnUpdate(Timestep ts, InputType type, void* args)
+    bool Array<int, 3>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -36,10 +37,11 @@ namespace ntt
             default:
                 break; 
         }
+        return true;
     }
 
     template<>
-    void Array<int, 4>::OnUpdate(Timestep ts, InputType type, void* args)
+    bool Array<int, 4>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -53,10 +55,11 @@ namespace ntt
             default:
                 break; 
         }
+        return true;
     }
 
     template<>
-    void Array<float, 2>::OnUpdate(Timestep ts, InputType type, void* args)
+    bool Array<float, 2>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -70,10 +73,11 @@ namespace ntt
             default:
                 break; 
         }
+        return true;
     }
 
     template<>
-    void Array<float, 3>::OnUpdate(Timestep ts, InputType type, void* args)
+    bool Array<float, 3>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -90,10 +94,11 @@ namespace ntt
             default:
                 break; 
         }
+        return true;
     }
 
     template<>
-    void Array<float, 4>::OnUpdate(Timestep ts, InputType type, void* args)
+    bool Array<float, 4>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         switch (type)
         {
@@ -110,5 +115,6 @@ namespace ntt
             default:
                 break; 
         }
+        return true;
     }
 } // namespace ntt

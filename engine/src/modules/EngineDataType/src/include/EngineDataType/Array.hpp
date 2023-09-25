@@ -46,7 +46,7 @@ namespace ntt
 
             std::vector<T> Value() { return value_; }
 
-            void OnUpdate(Timestep ts, InputType type = NONE, void* args = nullptr);
+            bool OnUpdate(Timestep ts, InputType type = NONE, void* args = nullptr);
 
             void SetValue(std::vector<T> value)
             {

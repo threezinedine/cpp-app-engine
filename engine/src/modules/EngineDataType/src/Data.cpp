@@ -5,7 +5,7 @@
 namespace ntt
 {
     template <>
-    void Data<int>::OnUpdate(Timestep ts, InputType type, void* args)
+    bool Data<int>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         std::stringstream ss;
 
@@ -43,10 +43,11 @@ namespace ntt
             default:
                 break;
         }
+    return true;
     }
 
     template <>
-    void Data<float>::OnUpdate(Timestep ts, InputType type, void* args)
+    bool Data<float>::OnUpdate(Timestep ts, InputType type, void* args)
     {
         std::stringstream ss;
 
@@ -83,5 +84,6 @@ namespace ntt
             default:
                 break;
         }
+        return true;
     }
 } // namespace ntt

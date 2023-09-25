@@ -11,6 +11,7 @@ namespace ntt
     {
         std::string types = "*";
         std::string title = "Choose File";
+        std::string path = ".";
     };
 
     class FileDialog

@@ -18,6 +18,14 @@ TEST_F(EngineDataTypeTest, RunOnUpdateWithoutException)
     EXPECT_NO_THROW(img.OnUpdate(ts, ntt::NONE));
 }
 
+TEST_F(EngineDataTypeTest, ImageFromFileName)
+{
+    std::string imagePath = "./image-path.png";
+    ntt::Image img("Image");
+
+    EXPECT_NO_THROW(img.FromFile(imagePath));
+}
+
 TEST_F(EngineDataTypeTest, ImageSetValue)
 {
     cv::Mat mat;

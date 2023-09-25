@@ -15,17 +15,25 @@ class TestWindow: public ntt::ImGuiWindow
                 speed_("Speed", 0, 0, 10),
                 color3_("Color3", { 0, 0, 0 }, 0.0f, 1.0f),
                 getData_("GetData"),
-                name_("Name")
+                name_("Name", 
+                    "C:/Users/Acer/OneDrive - Hanoi University of Science and Technology/Pictures/Game/FlappyBird/bird.png"),
+                image_("Image", 300, 300)
         {
 
+        }
+
+        void OnInit() override
+        {
+            image_.Init();
+            image_.FromFile(name_.Value());
         }
 
         void OnUpdateImpl(ntt::Timestep ts) override
         {
             ImGui::Text("Test Window");
 
-            static bool showWindow = true;
-            ImGui::ShowDemoWindow(&showWindow);
+            // static bool showWindow = false;
+            // ImGui::ShowDemoWindow(&showWindow);
 
             scores_.OnUpdate(ts, ntt::SLIDER);
 
@@ -38,16 +46,28 @@ class TestWindow: public ntt::ImGuiWindow
 
             speed_.OnUpdate(ts, ntt::SLIDER);
 
-            color3_.OnUpdate(ts, ntt::COLOR_PICKER);
+            // color3_.OnUpdate(ts, ntt::COLOR_PICKER);
 
             ImGui::Text(color3_.ToString().c_str());
 
             getData_.OnUpdate(ts);
             ImGui::Text(getData_.ToString().c_str());
 
-            ntt::StringOptions options{ .fileOpts = { .types = ".hpp,.cpp,.h", .title = "Choose image file" } };
-            name_.OnUpdate(ts, ntt::FILE_DIALOG, (void*)&options);
+            ntt::StringOptions options{ 
+                .fileOpts = { 
+                    .types = ".png,.jpg", 
+                    .title = "Choose image file", 
+                    .path = "C:/Users/Acer/Downloads/", 
+                } 
+            };
             ImGui::Text(name_.ToString().c_str());
+            if (name_.OnUpdate(ts, ntt::FILE_DIALOG, (void*)&options))
+            {
+                image_.FromFile(name_.Value());
+            }
+
+            ntt::ImageOptions imgOptions { .imgOptions = { .width = 500, .height = 350, } };
+            image_.OnUpdate(ts, ntt::IMAGE, (void*)&imgOptions);
         }
 
     private:
@@ -59,6 +79,7 @@ class TestWindow: public ntt::ImGuiWindow
         ntt::Array<float, 3> color3_;
         ntt::Bool getData_;
         ntt::String<256> name_;
+        ntt::Image image_;
 };
 
 

@@ -14,6 +14,7 @@ namespace ntt
             ImGuiWindow(const char* title);
             virtual ~ImGuiWindow() = default;
 
+            virtual void OnInit();
             virtual void OnUpdate(Timestep ts);
             virtual void OnUpdateImpl(Timestep ts) = 0;
 
