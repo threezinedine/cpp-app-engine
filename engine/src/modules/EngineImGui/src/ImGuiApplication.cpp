@@ -32,6 +32,10 @@ namespace ntt
 
     ImGuiApplication::~ImGuiApplication()
     {
+        for (int i=0; i<imguiWindows_.size(); i++)
+        {
+            imguiWindows_[i]->OnRelease();
+        }
         window_->ImGuiBackendRelease();
         ImGui::DestroyContext();
     }

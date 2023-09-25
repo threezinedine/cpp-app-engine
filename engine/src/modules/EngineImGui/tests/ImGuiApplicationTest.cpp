@@ -17,8 +17,10 @@ class ImGuiWindowMock: public ntt::ImGuiWindow
         ImGuiWindowMock(const char* title)
             : ImGuiWindow(title) {}
 
+        MOCK_METHOD(void, OnInit, (), (override));
         MOCK_METHOD(void, OnUpdate, (ntt::Timestep), (override));
         MOCK_METHOD(void, OnUpdateImpl, (ntt::Timestep), (override));
+        MOCK_METHOD(void, OnRelease, (), (override));
 
         static ntt::Ref<ImGuiWindowMock> CreateRef()
         {
@@ -65,16 +67,19 @@ TEST_F(ImGuiApplicationTest, GivenAddingANewImGuiApplicationWindowWhenRunOnUpdat
 {
     window_->IgnoreMocking();
     window_->WindowShouldCloseAfter(5);
-
     auto imguiWindow = ImGuiWindowMock::CreateRef();
-    ntt::Ref<ntt::ImGuiApplication> application = ntt::ImGuiApplicationBuilder()
-                                            .UseWindow(window_)
-                                            .AddImGuiWindow(imguiWindow)
-                                            .Build();
-
+    EXPECT_CALL(*imguiWindow, OnInit()).Times(1);
     EXPECT_CALL(*imguiWindow, OnUpdate(testing::_)).Times(5);
+    EXPECT_CALL(*imguiWindow, OnRelease()).Times(1);
 
-    application->MainLoop();
+    {
+        ntt::Ref<ntt::ImGuiApplication> application = ntt::ImGuiApplicationBuilder()
+                                                .UseWindow(window_)
+                                                .AddImGuiWindow(imguiWindow)
+                                                .Build();
+
+        application->MainLoop();
+    }
 }
 
 TEST_F(ImGuiApplicationTest, WhenCreateApplicationWithoutWindowThenThrowError)

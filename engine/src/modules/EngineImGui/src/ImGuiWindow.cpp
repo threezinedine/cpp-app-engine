@@ -23,4 +23,9 @@ namespace ntt
     {
 
     }
+
+    void ImGuiWindow::OnRelease()
+    {
+
+    }
 } // namespace ntt

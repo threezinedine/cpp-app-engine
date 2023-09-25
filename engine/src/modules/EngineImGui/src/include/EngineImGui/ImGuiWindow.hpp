@@ -17,6 +17,7 @@ namespace ntt
             virtual void OnInit();
             virtual void OnUpdate(Timestep ts);
             virtual void OnUpdateImpl(Timestep ts) = 0;
+            virtual void OnRelease();
 
         private:
             const char* title_;
