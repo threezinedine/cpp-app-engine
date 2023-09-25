@@ -11,3 +11,6 @@
 [submodule "engine/src/modules/EngineImGuiComponents/vendors/ntt-file-dialog"]
 	path = engine/src/modules/EngineImGuiComponents/vendors/ntt-file-dialog
 	url = https://github.com/threezinedine/ImGuiFileDialog.git
+[submodule "engine/src/modules/EngineWindow/vendors/glew"]
+	path = engine/src/modules/EngineWindow/vendors/glew
+	url = https://github.com/Perlmint/glew-cmake.git
