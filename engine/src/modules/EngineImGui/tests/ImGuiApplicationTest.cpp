@@ -6,6 +6,7 @@
 #include "EngineCores/EngineCores.hpp"
 #include "EngineWindow/EngineWindow.hpp"
 #include "EngineWindow/mocking/WindowMocking.hpp"
+#include "EngineThreading/mock/ThreadMock.hpp"
 #include "EngineExceptions/EngineExceptions.hpp"
 
 #include <imgui.h>
@@ -33,10 +34,14 @@ class ImGuiApplicationTest: public testing::Test
 {
     protected:
         ntt::Ref<WindowMocking> window_;
+        ntt::Ref<ThreadMock> thread_;
 
         void SetUp() override
         {
             window_ = WindowMocking::CreateRef(); 
+            thread_ = ThreadMock::CreateRef(0);
+
+            thread_->IgnoreSetRunning();
         }
 };
 
@@ -72,10 +77,13 @@ TEST_F(ImGuiApplicationTest, GivenAddingANewImGuiApplicationWindowWhenRunOnUpdat
     EXPECT_CALL(*imguiWindow, OnUpdate(testing::_)).Times(5);
     EXPECT_CALL(*imguiWindow, OnRelease()).Times(1);
 
+    EXPECT_CALL(*thread_, StartImpl()).Times(1);
+
     {
         ntt::Ref<ntt::ImGuiApplication> application = ntt::ImGuiApplicationBuilder()
                                                 .UseWindow(window_)
                                                 .AddImGuiWindow(imguiWindow)
+                                                .AddThread(thread_)
                                                 .Build();
 
         application->MainLoop();

@@ -33,6 +33,12 @@ namespace ntt
         return *this;
     }
 
+    ImGuiApplicationBuilder& ImGuiApplicationBuilder::AddThread(Ref<Thread> thread)
+    {
+        threads_.push_back(thread);
+        return *this;
+    }
+
     ImGuiApplicationBuilder& ImGuiApplicationBuilder::UseDocking()
     {
         docking_ = true;
@@ -51,6 +57,11 @@ namespace ntt
         for (auto imguiWindow: imguiWindows_)
         {
             imguiApplication->AppendWindow(imguiWindow);
+        }
+
+        for (auto thread: threads_)
+        {
+            imguiApplication->AppendThread(thread);
         }
 
         return imguiApplication;

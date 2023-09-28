@@ -4,6 +4,7 @@
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include "EngineImGui/ImGuiWindow.hpp"
+#include "EngineThreading/EngineThreading.hpp"
 
 #include <iostream>
 
@@ -40,9 +41,19 @@ namespace ntt
         ImGui::DestroyContext();
     }
 
+    void ImGuiApplication::AppendThread(Ref<Thread> thread)
+    {
+        threads_.push_back(thread);
+    }
+
     long long ImGuiApplication::MainLoop()
     {
         long long loop = 0;
+
+        for (auto thread: threads_)
+        {
+            thread->Start();
+        }
 
         while (!window_->ShouldClose())
         {

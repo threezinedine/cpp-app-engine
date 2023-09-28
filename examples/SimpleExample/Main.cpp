@@ -17,6 +17,7 @@ class TestWindow: public ntt::ImGuiWindow
                 getData_("GetData"),
                 name_("Name", 
                     "C:/Users/Acer/OneDrive - Hanoi University of Science and Technology/Pictures/Game/FlappyBird/bird.png"),
+                size_("Image Size", { 500, 350 }, 100, 1000),
                 image_("Image", 300, 300)
         {
 
@@ -66,7 +67,9 @@ class TestWindow: public ntt::ImGuiWindow
                 image_.FromFile(name_.Value());
             }
 
-            ntt::ImageOptions imgOptions { .imgOptions = { .width = 500, .height = 350, } };
+            size_.OnUpdate(ts, ntt::SLIDER);
+
+            ntt::ImageOptions imgOptions { .imgOptions = { .width = size_.Value()[0], .height = size_.Value()[1], } };
             image_.OnUpdate(ts, ntt::IMAGE, (void*)&imgOptions);
         }
 
@@ -79,6 +82,7 @@ class TestWindow: public ntt::ImGuiWindow
         ntt::Array<float, 3> color3_;
         ntt::Bool getData_;
         ntt::String<256> name_;
+        ntt::Array<int, 2> size_;
         ntt::Image image_;
 };
 
