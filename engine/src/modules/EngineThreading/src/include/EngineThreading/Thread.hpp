@@ -10,6 +10,8 @@ namespace ntt
     class Thread
     {
         public:
+            Thread(const char* name);
+            virtual ~Thread() = default;
             virtual void Start();
             virtual void StartImpl() = 0;
 
@@ -27,7 +29,10 @@ namespace ntt
 
             long long MainLoop();
 
+            inline const char* GetName() const { return name_; }
+
         private:
+            const char* name_;
             bool isRunning_;
             Scope<std::thread> thread_;
     }; 

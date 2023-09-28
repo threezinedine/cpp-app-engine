@@ -10,6 +10,17 @@ static ntt::Data<int> value("ThreadingTestVariable", 0, 0, 50000);
 class IntegrationThread: public ntt::Thread
 {
     public:
+        IntegrationThread(const char* name)
+            : ntt::Thread(name)
+        {
+
+        }
+
+        ~IntegrationThread()
+        {
+
+        }
+
         void StartImpl() override
         {
 
@@ -57,7 +68,7 @@ class EngineThreadingIntegraionTest: public testing::Test
 
 TEST_F(EngineThreadingIntegraionTest, LockingVariableWillTurnOnTheMutex)
 {
-    IntegrationThread t1;
+    IntegrationThread t1("Testing Thread");
 
     t1.Start();
 

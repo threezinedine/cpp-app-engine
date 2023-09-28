@@ -19,7 +19,7 @@ class EngineThreadTest : public testing::Test
 
 TEST_F(EngineThreadTest, InitializeTheThreadMock)
 {
-    ThreadMock cam(0);
+    ThreadMock cam("Test Thread", 0);
 
     cam.IgnoreStopImplExpect();
     cam.SetupIsRunningReturnFalseAt(7);
@@ -34,7 +34,7 @@ TEST_F(EngineThreadTest, InitializeTheThreadMock)
 
 TEST_F(EngineThreadTest, TheThreadRunsTheStopImplWhenBeStop)
 {
-    ThreadMock cam(0);
+    ThreadMock cam("Test Thread", 0);
     
     cam.IgnoreStartImplExpect();
     cam.IgnoreSetRunning();
@@ -49,7 +49,7 @@ TEST_F(EngineThreadTest, TheThreadRunsTheStopImplWhenBeStop)
 
 TEST_F(EngineThreadTest, ThreadMainLoop)
 {
-    ThreadMock cam(0);
+    ThreadMock cam("Test Thread", 0);
     cam.SetupIsRunningReturnFalseAt(5);
     EXPECT_CALL(cam, OnRunImpl()).Times(5);
 
@@ -60,10 +60,17 @@ TEST_F(EngineThreadTest, ThreadMainLoop)
 
 TEST_F(EngineThreadTest, WithOnUpdateMethod)
 {
-    ThreadMock cam(0);
+    ThreadMock cam("Test Thread", 0);
     ntt::Timestep ts;
 
     EXPECT_CALL(cam, OnUpdateImpl(testing::_)).Times(1);
 
     EXPECT_NO_THROW(cam.OnUpdate(ts));
+}
+
+TEST_F(EngineThreadTest, ShouldHaveTheName)
+{
+    ThreadMock cam("Test Thread", 0);
+
+    EXPECT_THAT(cam.GetName(), testing::StrEq("Test Thread"));
 }

@@ -9,8 +9,8 @@
 class ThreadMock: public ntt::Thread
 {
     public:
-        ThreadMock(int camId)
-            : camId_(camId)
+        ThreadMock(const char* name, int camId)
+            : ntt::Thread(name), camId_(camId)
         {
 
         }
@@ -64,7 +64,7 @@ class ThreadMock: public ntt::Thread
 
         static ntt::Ref<ThreadMock> CreateRef(int id)
         {
-            return std::make_shared<ThreadMock>(id);
+            return std::make_shared<ThreadMock>("Test Thread", id);
         }
 
     private:

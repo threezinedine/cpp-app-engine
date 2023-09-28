@@ -1,5 +1,6 @@
 #include "EngineThreading/PreInclude.hpp"
 #include "EngineThreading/Thread.hpp"
+#include <imgui.h>
 
 
 #define HERE() std::cout << "Here" << std::endl;
@@ -8,6 +9,12 @@
 
 namespace ntt
 {
+    Thread::Thread(const char* name)
+        : name_(name)
+    {
+
+    }
+
     void Thread::Start()
     {
         SetRunning(true);
