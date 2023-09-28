@@ -28,6 +28,11 @@ namespace ntt
         OnRunImpl();
     }
 
+    void Thread::OnUpdate(Timestep ts)
+    {
+        OnUpdateImpl(ts);
+    }
+
     long long Thread::MainLoop()
     {
         long long result = 0;

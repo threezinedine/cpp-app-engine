@@ -5,6 +5,8 @@
 
 namespace ntt
 {
+    class Timestep;
+
     class Thread
     {
         public:
@@ -13,6 +15,9 @@ namespace ntt
 
             virtual void Stop();
             virtual void StopImpl() = 0;
+
+            virtual void OnUpdate(Timestep ts);
+            virtual void OnUpdateImpl(Timestep ts) = 0;
 
             virtual bool IsRunning() const;
             virtual void SetRunning(bool running);

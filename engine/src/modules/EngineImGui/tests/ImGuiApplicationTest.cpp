@@ -73,12 +73,13 @@ TEST_F(ImGuiApplicationTest, GivenAddingANewImGuiApplicationWindowWhenRunOnUpdat
 {
     window_->IgnoreMocking();
     window_->WindowShouldCloseAfter(5);
-    thread_->SetupIsRunningReturnFalseAt(8);
+    thread_->SetupIsRunningReturnFalseAt(5);
 
     auto imguiWindow = ImGuiWindowMock::CreateRef();
     EXPECT_CALL(*imguiWindow, OnInit()).Times(1);
     EXPECT_CALL(*imguiWindow, OnUpdate(testing::_)).Times(5);
     EXPECT_CALL(*imguiWindow, OnRelease()).Times(1);
+    EXPECT_CALL(*thread_, OnUpdateImpl(testing::_)).Times(5);
 
     EXPECT_CALL(*thread_, StartImpl()).Times(1);
     EXPECT_CALL(*thread_, StopImpl()).Times(1);

@@ -30,6 +30,11 @@ class IntegrationThread: public ntt::Thread
 
         }
 
+        void OnUpdateImpl(ntt::Timestep ts) override
+        {
+
+        }
+
     private:
         int index_ = 0;
 };

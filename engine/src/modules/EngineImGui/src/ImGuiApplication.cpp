@@ -69,6 +69,11 @@ namespace ntt
             {
                 imguiWindow->OnUpdate(ts);
             }
+
+            for (auto thread: threads_)
+            {
+                thread->OnUpdate(ts);
+            }
             
             window_->OnUpdateEnd(ts);
             loop++;

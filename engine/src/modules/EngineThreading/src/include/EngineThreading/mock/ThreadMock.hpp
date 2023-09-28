@@ -23,6 +23,7 @@ class ThreadMock: public ntt::Thread
         MOCK_METHOD(void, StartImpl, (), (override));
         MOCK_METHOD(void, StopImpl, (), (override));
         MOCK_METHOD(void, OnRunImpl, (), (override));
+        MOCK_METHOD(void, OnUpdateImpl, (ntt::Timestep), (override));
         MOCK_METHOD(bool, IsRunning, (), (const));
         MOCK_METHOD(void, SetRunning, (bool), (override));
 

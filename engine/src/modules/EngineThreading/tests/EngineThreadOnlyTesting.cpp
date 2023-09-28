@@ -58,4 +58,12 @@ TEST_F(EngineThreadTest, ThreadMainLoop)
     EXPECT_THAT(loop, testing::Eq(5));
 }
 
-// TEST_F(EngineThreadTest)
+TEST_F(EngineThreadTest, WithOnUpdateMethod)
+{
+    ThreadMock cam(0);
+    ntt::Timestep ts;
+
+    EXPECT_CALL(cam, OnUpdateImpl(testing::_)).Times(1);
+
+    EXPECT_NO_THROW(cam.OnUpdate(ts));
+}
