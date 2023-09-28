@@ -37,7 +37,9 @@ namespace ntt
 
     void Thread::OnUpdate(Timestep ts)
     {
+        ImGui::Begin(GetName());
         OnUpdateImpl(ts);
+        ImGui::End();
     }
 
     long long Thread::MainLoop()
