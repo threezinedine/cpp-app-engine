@@ -56,6 +56,11 @@ class ThreadMock: public ntt::Thread
                         .WillOnce(testing::Return(false));
         }
 
+        void IgnoreOnRunImpl()
+        {
+            EXPECT_CALL(*this, OnRunImpl()).Times(testing::AnyNumber());
+        }
+
         static ntt::Ref<ThreadMock> CreateRef(int id)
         {
             return std::make_shared<ThreadMock>(id);

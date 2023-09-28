@@ -1,4 +1,6 @@
 #pragma once
+#include <thread>
+#include "EngineCores/EngineCores.hpp"
 
 
 namespace ntt
@@ -22,5 +24,6 @@ namespace ntt
 
         private:
             bool isRunning_;
+            Scope<std::thread> thread_;
     }; 
 } // namespace ntt

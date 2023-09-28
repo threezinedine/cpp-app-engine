@@ -1,5 +1,5 @@
 #pragma once
 
 
-#include "LockableVar.hpp"
+#include "Lock.hpp"
 #include "Thread.hpp"

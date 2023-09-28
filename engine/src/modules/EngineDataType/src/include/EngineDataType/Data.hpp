@@ -1,6 +1,7 @@
 #pragma once
 #include "PreInclude.hpp"
 #include "InputType.hpp"
+#include "LockableVarible.hpp"
 
 
 namespace ntt
@@ -12,7 +13,7 @@ namespace ntt
     };
 
     template <typename T>
-    class Data: public DataTypeBase
+    class Data: public DataTypeBase, public LockableVariable
     {
         public:
             Data(const char* name)
@@ -66,10 +67,13 @@ namespace ntt
                 return ss.str();
             }
 
+            inline std::mutex& GetMutex() { return mutex_; }
+
         private:
             T value_;
             T minValue_;
             T maxValue_;
             Ref<DataStorage> storage_;
+            std::mutex mutex_;
     }; 
 } // namespace ntt

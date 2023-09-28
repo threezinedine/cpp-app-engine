@@ -74,6 +74,11 @@ namespace ntt
             loop++;
         }
 
+        for (auto thread: threads_)
+        {
+            thread->Stop();
+        }
+
         return loop;
     }
 

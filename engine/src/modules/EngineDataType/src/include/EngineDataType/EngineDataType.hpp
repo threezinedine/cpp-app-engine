@@ -1,5 +1,6 @@
 #pragma once
 
+#include "LockableVarible.hpp"
 #include "InputType.hpp"
 #include "DataStorage.hpp"
 

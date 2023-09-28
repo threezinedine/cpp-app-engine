@@ -22,6 +22,8 @@ TEST_F(EngineThreadTest, InitializeTheThreadMock)
     ThreadMock cam(0);
 
     cam.IgnoreStopImplExpect();
+    cam.SetupIsRunningReturnFalseAt(7);
+    cam.IgnoreOnRunImpl();
     EXPECT_CALL(cam, StartImpl()).Times(1);
     EXPECT_CALL(cam, SetRunning(true)).Times(1);
     EXPECT_CALL(cam, SetRunning(false)).Times(1);
@@ -36,6 +38,8 @@ TEST_F(EngineThreadTest, TheThreadRunsTheStopImplWhenBeStop)
     
     cam.IgnoreStartImplExpect();
     cam.IgnoreSetRunning();
+    cam.SetupIsRunningReturnFalseAt(5);
+    cam.IgnoreOnRunImpl();
     EXPECT_CALL(cam, StopImpl()).Times(1);
 
     cam.Start();

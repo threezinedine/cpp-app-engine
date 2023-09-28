@@ -42,6 +42,7 @@ class ImGuiApplicationTest: public testing::Test
             thread_ = ThreadMock::CreateRef(0);
 
             thread_->IgnoreSetRunning();
+            thread_->IgnoreOnRunImpl();
         }
 };
 
@@ -72,12 +73,15 @@ TEST_F(ImGuiApplicationTest, GivenAddingANewImGuiApplicationWindowWhenRunOnUpdat
 {
     window_->IgnoreMocking();
     window_->WindowShouldCloseAfter(5);
+    thread_->SetupIsRunningReturnFalseAt(8);
+
     auto imguiWindow = ImGuiWindowMock::CreateRef();
     EXPECT_CALL(*imguiWindow, OnInit()).Times(1);
     EXPECT_CALL(*imguiWindow, OnUpdate(testing::_)).Times(5);
     EXPECT_CALL(*imguiWindow, OnRelease()).Times(1);
 
     EXPECT_CALL(*thread_, StartImpl()).Times(1);
+    EXPECT_CALL(*thread_, StopImpl()).Times(1);
 
     {
         ntt::Ref<ntt::ImGuiApplication> application = ntt::ImGuiApplicationBuilder()
