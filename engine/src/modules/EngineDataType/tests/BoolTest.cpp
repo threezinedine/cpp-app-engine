@@ -1,6 +1,8 @@
 #include "PreInclude.hpp"
 #include "EngineDataType/Bool.hpp"
 
+#define HERE() std::cout << "LINE: " << __LINE__ << " - File: " << __FILE__ << std::endl;
+
 
 TEST_F(EngineDataTypeTest, BoolIsInitialize)
 {

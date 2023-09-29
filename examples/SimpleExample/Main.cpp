@@ -14,13 +14,15 @@ class TestWindow: public ntt::ImGuiWindow
                 color_("Color", { 0, 0, 0, 0 }, 0, 255),
                 speed_("Speed", 0, 0, 10),
                 color3_("Color3", { 0, 0, 0 }, 0.0f, 1.0f),
-                getData_("GetData"),
                 name_("Name", 
-                    "C:/Users/Acer/OneDrive - Hanoi University of Science and Technology/Pictures/Game/FlappyBird/bird.png"),
-                size_("Image Size", { 500, 350 }, 100, 1000)
+                    "C:/Users/Acer/OneDrive - Hanoi University of Science and Technology/Pictures/Game/FlappyBird/bird.png")
         {
             image_ = std::make_shared<ntt::Image>("Image", 300, 300);
             imageDisplay_ = std::make_unique<ntt::ImGuiImage>(image_);
+            storage_ = ntt::DataStorage::CreateRef("./simple-example.json");
+            size_ = std::make_unique<ntt::Array<int, 2>>(
+                "Size", std::vector<int>{ 300, 250 }, 100, 1000, storage_);
+            getData_ = std::make_unique<ntt::Bool>("GetData", storage_);
         }
 
         void OnInit() override
@@ -47,12 +49,12 @@ class TestWindow: public ntt::ImGuiWindow
 
             speed_.OnUpdate(ts, ntt::SLIDER);
 
-            color3_.OnUpdate(ts, ntt::COLOR_PICKER);
+            // color3_.OnUpdate(ts, ntt::COLOR_PICKER);
 
             ImGui::Text(color3_.ToString().c_str());
 
-            getData_.OnUpdate(ts);
-            ImGui::Text(getData_.ToString().c_str());
+            getData_->OnUpdate(ts);
+            ImGui::Text(getData_->ToString().c_str());
 
             ntt::StringOptions options{ 
                 .fileOpts = { 
@@ -67,9 +69,9 @@ class TestWindow: public ntt::ImGuiWindow
                 image_->FromFile(name_.Value());
             }
 
-            size_.OnUpdate(ts, ntt::SLIDER);
+            size_->OnUpdate(ts, ntt::SLIDER);
 
-            imageDisplay_->OnUpdate({ size_.Value()[0], size_.Value()[1] });
+            imageDisplay_->OnUpdate({ size_->Value()[0], size_->Value()[1] });
         }
 
     private:
@@ -79,11 +81,12 @@ class TestWindow: public ntt::ImGuiWindow
         ntt::Array<int, 3> position3D_;
         ntt::Array<int, 4> color_;
         ntt::Array<float, 3> color3_;
-        ntt::Bool getData_;
+        ntt::Scope<ntt::Bool> getData_;
         ntt::String<256> name_;
-        ntt::Array<int, 2> size_;
         ntt::Ref<ntt::Image> image_;
         ntt::Scope<ntt::ImGuiImage> imageDisplay_;
+        ntt::Ref<ntt::DataStorage> storage_;
+        ntt::Scope<ntt::Array<int, 2>> size_;
 };
 
 

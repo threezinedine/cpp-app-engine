@@ -7,6 +7,3 @@
 #include <gmock/gmock.h>
 
 #include "EngineDataTypeTest.hpp"
-
-
-#define HERE() std::cout << "Here - Line: " << __LINE__ << std::endl

@@ -35,5 +35,6 @@ class CameraThread: public ntt::Thread
         ntt::TimeTrigger triggerMainThread_;
         ntt::Scope<ntt::ImGuiImage> imageDisplay_;
         bool haveImage_ = true;
-        ntt::Array<int, 2> imageSize_;
+        ntt::Scope<ntt::Array<int, 2>> imageSize_;
+        ntt::Ref<ntt::DataStorage> storage_;
 };

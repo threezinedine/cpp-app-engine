@@ -27,5 +27,6 @@ target_link_libraries(
     EngineCores
     ImGui
     EngineImGuiComponents
+    ConfigurationCppLibs
     ${OpenCV_LIBS}
 )

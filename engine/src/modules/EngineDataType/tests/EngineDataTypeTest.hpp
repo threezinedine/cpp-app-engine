@@ -9,6 +9,12 @@
 class DataStorageMocking: public ntt::DataStorage
 {
     public:
+        DataStorageMocking()
+            : DataStorage()
+        {
+
+        }
+
         // -------------------- BEGIN ----------------------- 
         // Save value for int
         void SaveValue(const char* name, int value) override
