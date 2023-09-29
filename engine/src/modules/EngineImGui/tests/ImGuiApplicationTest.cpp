@@ -91,7 +91,7 @@ TEST_F(ImGuiApplicationTest, GivenAddingANewImGuiApplicationWindowWhenRunOnUpdat
                                                 .AddThread(thread_)
                                                 .Build();
 
-        application->MainLoop();
+        application->MainLoop(true);
     }
 }
 

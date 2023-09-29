@@ -17,26 +17,30 @@ namespace ntt
         int height = 100;
     };
 
+    class Image;
+
     class ImGuiImage
     {
         public:
-            ImGuiImage();
+            ImGuiImage(Ref<Image> image);
             ~ImGuiImage();
 
-            void Init(int width = 300, int height = 200);
+            void Init();
 
             void SetImage(cv::Mat& image);
             void OnUpdate(ImGuiImageOptions opts = ImGuiImageOptions());
+            void SetSize(int width, int height);
 
-            static Scope<ImGuiImage> CreateScope()
+            static Scope<ImGuiImage> CreateScope(Ref<Image> image)
             {
-                return std::make_unique<ImGuiImage>();
+                return std::make_unique<ImGuiImage>(image);
             }
 
         private:
             unsigned int rendererId_;
-            unsigned int width_;
-            unsigned int height_;
+            unsigned int width_ = -1;
+            unsigned int height_ = -1;
             bool haveImage_ = false;
+            Ref<Image> image_;
     };
 } // namespace ntt

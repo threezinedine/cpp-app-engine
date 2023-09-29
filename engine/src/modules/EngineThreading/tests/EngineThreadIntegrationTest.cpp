@@ -4,7 +4,8 @@
 #include "EngineDataType/EngineDataType.hpp"
 
 
-static ntt::Data<int> value("ThreadingTestVariable", 0, 0, 50000);
+static ntt::Ref<ntt::Data<int>> value 
+            = std::make_shared<ntt::Data<int>>("ThreadingTestVariable", 0, 0, 50000);
 
 
 class IntegrationThread: public ntt::Thread
@@ -31,7 +32,7 @@ class IntegrationThread: public ntt::Thread
             if (index_ < 1000)
             {
                 ntt::Lock lock(value);
-                value.SetValue(value.Value() + 1);
+                value->SetValue(value->Value() + 1);
                 index_ ++;
             }
         }
@@ -75,10 +76,10 @@ TEST_F(EngineThreadingIntegraionTest, LockingVariableWillTurnOnTheMutex)
     for (int i=0; i<40000; i++)
     {
         ntt::Lock lock(value);
-        value.SetValue(value.Value() + 1);
+        value->SetValue(value->Value() + 1);
     }
 
     t1.Stop();
 
-    EXPECT_THAT(value.Value(), testing::Eq(41000));
+    EXPECT_THAT(value->Value(), testing::Eq(41000));
 }

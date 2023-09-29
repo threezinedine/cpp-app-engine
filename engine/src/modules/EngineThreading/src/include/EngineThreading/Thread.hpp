@@ -18,7 +18,7 @@ namespace ntt
             virtual void Stop();
             virtual void StopImpl() = 0;
 
-            virtual void OnUpdate(Timestep ts);
+            virtual void OnUpdate(Timestep ts, bool testing = false);
             virtual void OnUpdateImpl(Timestep ts) = 0;
 
             virtual bool IsRunning() const;

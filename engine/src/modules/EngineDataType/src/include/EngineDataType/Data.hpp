@@ -67,7 +67,8 @@ namespace ntt
                 return ss.str();
             }
 
-            inline std::mutex& GetMutex() { return mutex_; }
+            inline void Lock() { mutex_.lock(); }
+            inline void UnLock() { mutex_.unlock(); }
 
         private:
             T value_;

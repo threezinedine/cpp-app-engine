@@ -7,6 +7,43 @@
 #include "EngineThreading/EngineThreading.hpp"
 
 #include <iostream>
+#include <glfw/glfw3.h>
+#define HERE() std::cout << "Line: " << __LINE__ << std::endl << "File: " << __FILE__ << std::endl
+#define HERE_MSG(msg) std::cout << "Message: " << (msg) << " Line: " << __LINE__ << std::endl << "File: " << __FILE__ << std::endl
+
+#ifdef REMOVE_ERROR
+    #define ERROR() CheckError(__FILE__, __LINE__)
+#else 
+    #define ERROR()
+#endif
+
+#define SCALE (4)
+
+static int count = 0;
+
+static void CheckError(const char* file, int line)
+{
+    GLenum error;
+    if ((error = glGetError()) != GL_NO_ERROR) {
+        switch (error) {
+            case GL_INVALID_ENUM:
+                std::cerr << "OpenGL Error (Enum) at " << file << ":" << line << ": GL_INVALID_ENUM" << std::endl;
+                break;
+            case GL_INVALID_VALUE:
+                std::cerr << "OpenGL Error (Value) at " << file << ":" << line << ": GL_INVALID_VALUE" << std::endl;
+                break;
+            case GL_INVALID_OPERATION:
+                std::cerr << "OpenGL Error (Operation) at " << file << ":" << line << ": GL_INVALID_OPERATION" << std::endl;
+                break;
+            case GL_OUT_OF_MEMORY:
+                std::cerr << "OpenGL Error (Memory) at " << file << ":" << line << ": GL_OUT_OF_MEMORY" << std::endl;
+                break;
+            default:
+                std::cerr << "OpenGL Error (Unknown) at " << file << ":" << line << ": Unknown error" << std::endl;
+                break;
+        }
+    }
+}
 
 
 namespace ntt
@@ -46,7 +83,7 @@ namespace ntt
         threads_.push_back(thread);
     }
 
-    long long ImGuiApplication::MainLoop()
+    long long ImGuiApplication::MainLoop(bool testing)
     {
         long long loop = 0;
 
@@ -55,29 +92,44 @@ namespace ntt
             thread->Start();
         }
 
+        // ERROR();
+        // ntt::Time time("ImGuiApplication Main Loop");
+
         while (!window_->ShouldClose())
         {
             Timestep ts;
             window_->OnUpdateBegin(ts);
 
+            ERROR();
+
             if (docking_)
             {
                 ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
             }
+
+            ERROR();
             
             for (auto imguiWindow: imguiWindows_)
             {
                 imguiWindow->OnUpdate(ts);
             }
 
+            ERROR();
+
             for (auto thread: threads_)
             {
-                thread->OnUpdate(ts);
+                ERROR();
+                thread->OnUpdate(ts, testing);
             }
+
+            ERROR();
             
             window_->OnUpdateEnd(ts);
+
+            ERROR();
             loop++;
         }
+
 
         for (auto thread: threads_)
         {

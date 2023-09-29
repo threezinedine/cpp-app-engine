@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineCores/EngineCores.hpp"
 
 
 namespace ntt
@@ -8,10 +9,10 @@ namespace ntt
     class Lock
     {
         public:
-            Lock(LockableVariable& var);
+            Lock(Ref<LockableVariable> var);
             ~Lock();
 
         private:
-            LockableVariable& var_;
+            Ref<LockableVariable> var_;
     }; 
 } // namespace ntt

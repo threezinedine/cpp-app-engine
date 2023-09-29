@@ -16,7 +16,7 @@ namespace ntt
             ImGuiApplication(Ref<Window> window, bool docking);
             ~ImGuiApplication();
 
-            long long MainLoop();
+            long long MainLoop(bool testing = false);
             void AppendWindow(Ref<ImGuiWindow> window);
             void AppendThread(Ref<Thread> thread);
 

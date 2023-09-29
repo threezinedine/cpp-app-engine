@@ -114,6 +114,7 @@ namespace ntt
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+        ERROR();
     }
 
     void WindowImpl::OnUpdateEnd(Timestep ts)

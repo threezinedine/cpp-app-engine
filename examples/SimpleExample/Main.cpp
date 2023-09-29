@@ -17,24 +17,24 @@ class TestWindow: public ntt::ImGuiWindow
                 getData_("GetData"),
                 name_("Name", 
                     "C:/Users/Acer/OneDrive - Hanoi University of Science and Technology/Pictures/Game/FlappyBird/bird.png"),
-                size_("Image Size", { 500, 350 }, 100, 1000),
-                image_("Image", 300, 300)
+                size_("Image Size", { 500, 350 }, 100, 1000)
         {
-
+            image_ = std::make_shared<ntt::Image>("Image", 300, 300);
+            imageDisplay_ = std::make_unique<ntt::ImGuiImage>(image_);
         }
 
         void OnInit() override
         {
-            image_.Init();
-            image_.FromFile(name_.Value());
+            image_->Init();
+            image_->SetSize(400, 300);
+            image_->FromFile(name_.Value());
+            imageDisplay_->Init();
+            // imageDisplay_.SetImage(image_->Value());
         }
 
         void OnUpdateImpl(ntt::Timestep ts) override
         {
             ImGui::Text("Test Window");
-
-            // static bool showWindow = false;
-            // ImGui::ShowDemoWindow(&showWindow);
 
             scores_.OnUpdate(ts, ntt::SLIDER);
 
@@ -47,7 +47,7 @@ class TestWindow: public ntt::ImGuiWindow
 
             speed_.OnUpdate(ts, ntt::SLIDER);
 
-            // color3_.OnUpdate(ts, ntt::COLOR_PICKER);
+            color3_.OnUpdate(ts, ntt::COLOR_PICKER);
 
             ImGui::Text(color3_.ToString().c_str());
 
@@ -64,13 +64,12 @@ class TestWindow: public ntt::ImGuiWindow
             ImGui::Text(name_.ToString().c_str());
             if (name_.OnUpdate(ts, ntt::FILE_DIALOG, (void*)&options))
             {
-                image_.FromFile(name_.Value());
+                image_->FromFile(name_.Value());
             }
 
             size_.OnUpdate(ts, ntt::SLIDER);
 
-            ntt::ImageOptions imgOptions { .imgOptions = { .width = size_.Value()[0], .height = size_.Value()[1], } };
-            image_.OnUpdate(ts, ntt::IMAGE, (void*)&imgOptions);
+            imageDisplay_->OnUpdate({ size_.Value()[0], size_.Value()[1] });
         }
 
     private:
@@ -83,7 +82,8 @@ class TestWindow: public ntt::ImGuiWindow
         ntt::Bool getData_;
         ntt::String<256> name_;
         ntt::Array<int, 2> size_;
-        ntt::Image image_;
+        ntt::Ref<ntt::Image> image_;
+        ntt::Scope<ntt::ImGuiImage> imageDisplay_;
 };
 
 

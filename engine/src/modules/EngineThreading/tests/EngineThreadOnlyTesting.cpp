@@ -65,7 +65,7 @@ TEST_F(EngineThreadTest, WithOnUpdateMethod)
 
     EXPECT_CALL(cam, OnUpdateImpl(testing::_)).Times(1);
 
-    EXPECT_NO_THROW(cam.OnUpdate(ts));
+    EXPECT_NO_THROW(cam.OnUpdate(ts, true));
 }
 
 TEST_F(EngineThreadTest, ShouldHaveTheName)

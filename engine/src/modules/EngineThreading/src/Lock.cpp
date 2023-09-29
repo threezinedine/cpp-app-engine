@@ -2,17 +2,19 @@
 #include "EngineThreading/Lock.hpp"
 #include "EngineDataType/LockableVarible.hpp"
 
+#include <iostream>
+
 
 namespace ntt
 {
-    Lock::Lock(LockableVariable& var)
+    Lock::Lock(Ref<LockableVariable> var)
         : var_(var)
     {
-        var.GetMutex().lock();
+        var->Lock();
     }    
 
     Lock::~Lock()
     {
-        var_.GetMutex().unlock();
+        var_->UnLock();
     }
 } // namespace ntt
