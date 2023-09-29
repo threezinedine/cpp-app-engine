@@ -10,6 +10,8 @@
 #include "EngineExceptions/EngineExceptions.hpp"
 
 #include <imgui.h>
+#include <iostream>
+#define HERE() std::cout << "Line: " << __LINE__ << " - File: " << __FILE__ << std::endl;
 
 
 class ImGuiWindowMock: public ntt::ImGuiWindow
@@ -61,7 +63,7 @@ TEST_F(ImGuiApplicationTest, WhenInitializeImGuiApplicationAlsoInitializeWindow)
         ntt::ImGuiApplication imguiApplication(window_, false);
         ASSERT_THAT(ImGui::GetCurrentContext(), ::testing::NotNull());
 
-        long long loop = imguiApplication.MainLoop();
+        long long loop = imguiApplication.MainLoop(true);
 
         EXPECT_THAT(loop, testing::Eq(5));
     }

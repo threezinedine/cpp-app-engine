@@ -36,8 +36,8 @@ static void CheckError(const char* file, int line)
 
 
 CameraThread::CameraThread()
-    : ntt::Thread("Camera Thread")
-        // imageDisplay_(image_)
+    : ntt::Thread("Camera Thread"),
+        imageSize_("Image Size", { 300, 250 }, 100, 1000)
 {
     image_ = std::make_shared<ntt::Image>("Camera");
     imageDisplay_ = std::make_unique<ntt::ImGuiImage>(image_);
@@ -92,9 +92,11 @@ void CameraThread::OnUpdateImpl(ntt::Timestep ts)
 {
     ntt::Lock lock(image_);
 
+    imageSize_.OnUpdate(ts, ntt::SLIDER);
+
     if (!image_->IsEmpty())
     {
-        imageDisplay_->OnUpdate({ 500, 400 });
+        imageDisplay_->OnUpdate({ imageSize_.Value()[0], imageSize_.Value()[1] });
     }
     ERROR();
 }

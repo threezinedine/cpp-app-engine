@@ -92,9 +92,6 @@ namespace ntt
             thread->Start();
         }
 
-        // ERROR();
-        // ntt::Time time("ImGuiApplication Main Loop");
-
         while (!window_->ShouldClose())
         {
             Timestep ts;
@@ -107,7 +104,12 @@ namespace ntt
                 ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
             }
 
-            ERROR();
+            if (!testing)
+            {
+                static bool showDemo = true;
+                ImGui::ShowDemoWindow(&showDemo);
+            }
+
             
             for (auto imguiWindow: imguiWindows_)
             {

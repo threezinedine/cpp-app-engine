@@ -47,6 +47,7 @@ namespace ntt
             inline int GetHeight() const { return height_; }
 
             inline bool IsEmpty() { return value_.empty(); }
+            inline bool HasChanged() { return hasChanged_; }
 
         private:
             // Scope<ImGuiImage> imguiImage_;
@@ -55,5 +56,6 @@ namespace ntt
             std::string filePath_;
             std::mutex mutex_;
             cv::Mat value_;
+            bool hasChanged_ = false;
     };
 } // namespace ntt

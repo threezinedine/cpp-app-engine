@@ -52,6 +52,13 @@ TEST_F(EngineDataTypeTest, ImageSetValue)
     // EXPECT_THAT(img.IsEmpty(), testing::IsFalse());
 }
 
+TEST_F(EngineDataTypeTest, ImageHasChangeFunctionReturnFalseAtDefault)
+{
+    ntt::Image img("Image");
+
+    EXPECT_THAT(img.HasChanged(), testing::IsFalse());
+}
+
 TEST_F(EngineDataTypeTest, ImageDataIsTheLockableVariable)
 {
     cv::Mat mat;
