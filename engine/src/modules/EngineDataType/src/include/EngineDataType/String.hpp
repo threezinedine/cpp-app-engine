@@ -35,6 +35,12 @@ namespace ntt
                 SetValue(defaultValue);
             }
 
+            String(const char* name, std::string defaultValue, Ref<DataStorage> storage)
+                : DataTypeBase(name), storage_(storage)
+            {
+                SetValue(storage->GetValue(GetName(), defaultValue));
+            }
+
             String(const char* name, Ref<DataStorage> storage)
                 : DataTypeBase(name) , storage_(storage)
             {

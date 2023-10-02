@@ -13,15 +13,23 @@ class TestWindow: public ntt::ImGuiWindow
                 position3D_("Position 3D", { 0, 0, 0 }, 10, 300),
                 color_("Color", { 0, 0, 0, 0 }, 0, 255),
                 speed_("Speed", 0, 0, 10),
-                color3_("Color3", { 0, 0, 0 }, 0.0f, 1.0f),
-                name_("Name", 
-                    "C:/Users/Acer/OneDrive - Hanoi University of Science and Technology/Pictures/Game/FlappyBird/bird.png")
+                color3_("Color3", { 0, 0, 0 }, 0.0f, 1.0f)
+                // name_("Name", 
+                //     "C:/Users/Acer/OneDrive - Hanoi University of Science and Technology/Pictures/Game/FlappyBird/bird.png")
         {
-            image_ = std::make_shared<ntt::Image>("Image", 300, 300);
-            imageDisplay_ = std::make_unique<ntt::ImGuiImage>(image_);
             storage_ = ntt::DataStorage::CreateRef("./simple-example.json");
+
+            name_ = std::make_unique<ntt::String<256>>("Name", 
+                "C:/Users/Acer/OneDrive - Hanoi University of Science and Technology/Pictures/Game/FlappyBird/bird.png",
+                storage_);
+
+            image_ = std::make_shared<ntt::Image>("Image", 300, 300);
+            image_->FromFile(name_->Value());
+            imageDisplay_ = std::make_unique<ntt::ImGuiImage>(image_);
+
             size_ = std::make_unique<ntt::Array<int, 2>>(
                 "Size", std::vector<int>{ 300, 250 }, 100, 1000, storage_);
+
             getData_ = std::make_unique<ntt::Bool>("GetData", storage_);
         }
 
@@ -29,7 +37,7 @@ class TestWindow: public ntt::ImGuiWindow
         {
             image_->Init();
             image_->SetSize(400, 300);
-            image_->FromFile(name_.Value());
+            image_->FromFile(name_->Value());
             imageDisplay_->Init();
             // imageDisplay_.SetImage(image_->Value());
         }
@@ -60,13 +68,13 @@ class TestWindow: public ntt::ImGuiWindow
                 .fileOpts = { 
                     .types = ".png,.jpg", 
                     .title = "Choose image file", 
-                    .path = "C:/Users/Acer/Downloads/", 
+                    .path = ntt::GetFolder(name_->Value()),
                 } 
             };
-            ImGui::Text(name_.ToString().c_str());
-            if (name_.OnUpdate(ts, ntt::FILE_DIALOG, (void*)&options))
+            ImGui::Text(name_->ToString().c_str());
+            if (name_->OnUpdate(ts, ntt::FILE_DIALOG, (void*)&options))
             {
-                image_->FromFile(name_.Value());
+                image_->FromFile(name_->Value());
             }
 
             size_->OnUpdate(ts, ntt::SLIDER);
@@ -82,7 +90,7 @@ class TestWindow: public ntt::ImGuiWindow
         ntt::Array<int, 4> color_;
         ntt::Array<float, 3> color3_;
         ntt::Scope<ntt::Bool> getData_;
-        ntt::String<256> name_;
+        ntt::Scope<ntt::String<256>> name_;
         ntt::Ref<ntt::Image> image_;
         ntt::Scope<ntt::ImGuiImage> imageDisplay_;
         ntt::Ref<ntt::DataStorage> storage_;

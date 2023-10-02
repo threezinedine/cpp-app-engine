@@ -15,6 +15,7 @@ SET(TEST_FOLDERS
     ../src/modules/EngineApplication/tests
     ../src/modules/EngineDataType/tests
     ../src/modules/EngineThreading/tests
+    ../src/modules/EngineCores/tests
 )
 
 foreach(folder ${TEST_FOLDERS})

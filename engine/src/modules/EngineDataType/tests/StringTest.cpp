@@ -24,6 +24,16 @@ TEST_F(EngineDataTypeTest, InitializeWithDefaultVaulue)
     EXPECT_THAT(str.Value(), testing::StrEq(defaultString));
 }
 
+TEST_F(EngineDataTypeTest, InitializeWithDefaultValueAndStorage)
+{
+    storage_->SetGetValue("String", "Storage", "default");
+
+    std::string defaultString = "default";
+    ntt::String<256> str("String", defaultString, storage_);
+
+    EXPECT_THAT(str.Value(), testing::StrEq("Storage"));
+}
+
 TEST_F(EngineDataTypeTest, StringWithOnUpdateMethod)
 {
     ntt::Timestep ts;

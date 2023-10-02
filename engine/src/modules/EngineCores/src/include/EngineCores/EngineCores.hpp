@@ -5,3 +5,4 @@
 #include "ArrayUtils.hpp"
 #include "FileUtils.hpp"
 #include "TimeUtils.hpp"
+#include "StringUtils.hpp"
