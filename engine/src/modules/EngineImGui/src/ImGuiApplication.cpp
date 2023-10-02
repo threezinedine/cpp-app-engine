@@ -104,11 +104,11 @@ namespace ntt
                 ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
             }
 
-            if (!testing)
-            {
-                static bool showDemo = true;
-                ImGui::ShowDemoWindow(&showDemo);
-            }
+            // if (!testing)
+            // {
+            //     static bool showDemo = true;
+            //     ImGui::ShowDemoWindow(&showDemo);
+            // }
 
             
             for (auto imguiWindow: imguiWindows_)

@@ -104,6 +104,12 @@ int main(void)
 
     auto application = ntt::ImGuiApplicationBuilder()
                             .UseWindow(window)
+                            .AddImGuiWindow(std::make_shared<ntt::DemoWindow>())
+                            .AddImGuiWindow(std::make_shared<ntt::Overlay>("FPS Overlay", []() {
+                                ImGuiIO& io = ImGui::GetIO();
+                                ImGui::Text("Application average %.5f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+                            },
+                            ntt::BOTTOM_RIGHT))
                             .AddImGuiWindow(std::make_shared<TestWindow>())
                             .UseDocking()
                             .Build();

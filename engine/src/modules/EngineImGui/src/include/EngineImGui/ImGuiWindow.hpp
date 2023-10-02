@@ -16,10 +16,10 @@ namespace ntt
 
             virtual void OnInit();
             virtual void OnUpdate(Timestep ts);
-            virtual void OnUpdateImpl(Timestep ts) = 0;
+            virtual void OnUpdateImpl(Timestep ts);
             virtual void OnRelease();
 
-        private:
+        protected:
             const char* title_;
     };
 } // namespace ntt

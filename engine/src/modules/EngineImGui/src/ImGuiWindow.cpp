@@ -19,6 +19,11 @@ namespace ntt
         ImGui::End();
     }
 
+    void ImGuiWindow::OnUpdateImpl(Timestep ts)
+    {
+
+    }
+
     void ImGuiWindow::OnInit()
     {
 
