@@ -22,6 +22,11 @@ namespace ntt
             void OnUpdateImpl(Timestep ts) override;
             void OnRunImpl() override;
 
+            static Ref<WorkPool> CreateRef(const char* name)
+            {
+                return std::make_shared<WorkPool>(name);
+            }
+
         private:
             std::queue<Ref<Command>> commandQueue_;            
 

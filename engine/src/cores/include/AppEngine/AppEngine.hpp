@@ -9,3 +9,4 @@
 #include "EngineImGuiComponents/EngineImGuiComponents.hpp"
 #include "EngineThreading/EngineThreading.hpp"
 #include "EngineSupportWindows/EngineSupportWindows.hpp"
+#include "EnginePeripherals/EnginePeripherals.hpp"

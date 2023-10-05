@@ -71,4 +71,15 @@ namespace ntt
 
         return ss.str();
     }
+
+    void Bool::Lock()
+    {
+        mutex_.lock();
+    }
+
+    void Bool::UnLock()
+    {
+        mutex_.unlock();
+    }
+
 } // namespace ntt

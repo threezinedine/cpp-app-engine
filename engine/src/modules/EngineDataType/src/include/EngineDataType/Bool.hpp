@@ -3,6 +3,8 @@
 #include "EngineCores/EngineCores.hpp"
 #include "InputType.hpp"
 #include "DataTypeBase.hpp"
+#include "LockableVarible.hpp"
+#include <mutex>
 
 
 namespace ntt
@@ -10,7 +12,7 @@ namespace ntt
     class DataStorage;
     class Timestep;
 
-    class Bool: public DataTypeBase
+    class Bool: public DataTypeBase, public LockableVariable
     {
         public:
             Bool(const char* name);
@@ -25,8 +27,12 @@ namespace ntt
 
             std::string ToString() const;
 
+            void Lock() override;
+            void UnLock() override;
+
         private:
             bool value_;
             Ref<DataStorage> storage_;
+            std::mutex mutex_;
     };
 } // namespace ntt
