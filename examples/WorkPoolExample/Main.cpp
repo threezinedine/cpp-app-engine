@@ -22,6 +22,7 @@ class DataWindow: public ntt::ImGuiWindow
             if (ImGui::Button("Toggle"))
             {
                 value_->SetValue(!value_->Value());
+                uart_.SendRequets({ 'h', 'e', 'l', 'l', 'o' });
             }
 
             ImGui::Text(value_->ToString().c_str());

@@ -67,7 +67,6 @@ namespace ntt
 
     bool UARTConnection::IsConnected()
     {
-        ntt::Lock lock(isConnected_);
         return isConnected_->Value();
     }
 
@@ -120,8 +119,7 @@ namespace ntt
             return { SERIAL_RESULT_FAIL_TO_SETTING, 0 };
         }
 
-        ntt::Lock lock(isConnected_);
-        isConnected_->SetValue(false);
+        isConnected_->SetValue(true);
         return { SERIAL_RESULT_OK, 0 };
     }
 
@@ -188,6 +186,11 @@ namespace ntt
             selectableVectorCom_->OnUpdate();
             ImGui::Text("Select baudrate");
             selectableVectorBaudrate_->OnUpdate();
+            ImGui::Separator();
+
+            // isConnected_->OnUpdate(ts);
+            ImGui::Text(isConnected_->ToString().c_str());
+
             ImGui::Separator();
             if (ImGui::Button("Connect"))
             {
