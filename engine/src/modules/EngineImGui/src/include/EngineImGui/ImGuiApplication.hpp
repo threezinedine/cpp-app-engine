@@ -21,7 +21,6 @@ namespace ntt
             long long MainLoop(bool testing = false);
             void AppendWindow(Ref<ImGuiWindow> window);
             void AppendThread(Ref<Thread> thread);
-            void AppendWorkPool(Ref<WorkPool> workPool);
             Ref<WorkPool> GetWorkPool(const char* name);
 
         private:
@@ -29,6 +28,5 @@ namespace ntt
             Ref<Window> window_;
             std::vector<Ref<ImGuiWindow>> imguiWindows_;
             std::vector<Ref<Thread>> threads_;
-            std::map<std::string, Ref<WorkPool>> workPools_;
     }; 
 } // namespace ntt

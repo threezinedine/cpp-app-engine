@@ -101,10 +101,10 @@ TEST_F(ImGuiApplicationTest, GivenAddingANewImGuiApplicationWindowWhenRunOnUpdat
                                                 .AddWorkPool(workPool_)
                                                 .Build();
 
-        EXPECT_THAT(application->GetWorkPool(workPool_->GetName())->GetName(), 
+        EXPECT_THAT(ntt::WorkPool::GetWorkPool(workPool_->GetName())->GetName(), 
                                     testing::StrEq(workPool_->GetName()));
 
-        EXPECT_THAT(application->GetWorkPool("Non Existed Work Pool"), testing::IsNull());
+        EXPECT_THAT(ntt::WorkPool::GetWorkPool("Non Existed Work Pool"), testing::IsNull());
 
         application->MainLoop(true);
     }

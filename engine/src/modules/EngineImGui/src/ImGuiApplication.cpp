@@ -83,21 +83,11 @@ namespace ntt
         threads_.push_back(thread);
     }
 
-    Ref<WorkPool> ImGuiApplication::GetWorkPool(const char* name)
-    {
-        return workPools_[name];
-    }
-
-    void ImGuiApplication::AppendWorkPool(Ref<WorkPool> workPool)
-    {
-        AppendThread(workPool);
-        workPools_[workPool->GetName()] = workPool;
-    }
-
     long long ImGuiApplication::MainLoop(bool testing)
     {
         long long loop = 0;
 
+        WorkPool::Init();
         for (auto thread: threads_)
         {
             thread->Start();
@@ -142,6 +132,7 @@ namespace ntt
             thread->Stop();
         }
 
+        WorkPool::Release();
         return loop;
     }
 

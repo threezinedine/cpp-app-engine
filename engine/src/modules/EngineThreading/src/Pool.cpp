@@ -5,6 +5,8 @@
 
 namespace ntt
 {
+    std::map<std::string, Ref<WorkPool>> WorkPool::workPools_;
+
     WorkPool::WorkPool(const char* name)
         : Thread(name)
     {
@@ -60,4 +62,23 @@ namespace ntt
         }
     }
     
+    void WorkPool::Init()
+    {
+
+    }
+
+    void WorkPool::AddWorkPool(Ref<WorkPool> workPool)
+    {
+        workPools_[workPool->GetName()] = workPool;
+    }
+
+    Ref<WorkPool> WorkPool::GetWorkPool(const char* name)
+    {
+        return workPools_[name];
+    }
+
+    void WorkPool::Release()
+    {
+        workPools_.clear();
+    }
 } // namespace ntt

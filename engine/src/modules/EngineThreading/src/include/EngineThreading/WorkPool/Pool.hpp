@@ -1,5 +1,6 @@
 #pragma once
 #include <queue>
+#include <map>
 #include "EngineThreading/Thread.hpp"
 #include "EngineCores/EngineCores.hpp"
 
@@ -27,8 +28,15 @@ namespace ntt
                 return std::make_shared<WorkPool>(name);
             }
 
+            static void Init();
+            static void AddWorkPool(Ref<WorkPool> workPool);
+            static Ref<WorkPool> GetWorkPool(const char* name);
+            static void Release();
+
         private:
             std::queue<Ref<Command>> commandQueue_;            
+
+            static std::map<std::string, Ref<WorkPool>> workPools_;
 
             void ClearQueue();
     };    

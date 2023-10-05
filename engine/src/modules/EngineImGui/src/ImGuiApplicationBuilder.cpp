@@ -42,7 +42,8 @@ namespace ntt
 
     ImGuiApplicationBuilder& ImGuiApplicationBuilder::AddWorkPool(Ref<WorkPool> workPool)
     {
-        workPools_.push_back(workPool);
+        AddThread(workPool);
+        WorkPool::AddWorkPool(workPool);
         return *this;
     }
 
@@ -70,11 +71,6 @@ namespace ntt
         for (auto thread: threads_)
         {
             imguiApplication->AppendThread(thread);
-        }
-
-        for (auto workPool: workPools_)
-        {
-            imguiApplication->AppendWorkPool(workPool);
         }
 
         return imguiApplication;
