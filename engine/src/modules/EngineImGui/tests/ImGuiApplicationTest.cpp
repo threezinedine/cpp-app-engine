@@ -8,6 +8,7 @@
 #include "EngineWindow/mocking/WindowMocking.hpp"
 #include "EngineThreading/mock/ThreadMock.hpp"
 #include "EngineExceptions/EngineExceptions.hpp"
+#include "EngineThreading/WorkPool/mock/WorkPoolMock.hpp"
 
 #include <imgui.h>
 #include <iostream>
@@ -37,6 +38,7 @@ class ImGuiApplicationTest: public testing::Test
     protected:
         ntt::Ref<WindowMocking> window_;
         ntt::Ref<ThreadMock> thread_;
+        ntt::Ref<WorkPoolMock> workPool_;
 
         void SetUp() override
         {
@@ -45,6 +47,8 @@ class ImGuiApplicationTest: public testing::Test
 
             thread_->IgnoreSetRunning();
             thread_->IgnoreOnRunImpl();
+
+            workPool_ = WorkPoolMock::CreateRef("Test Mock");
         }
 };
 
@@ -86,12 +90,21 @@ TEST_F(ImGuiApplicationTest, GivenAddingANewImGuiApplicationWindowWhenRunOnUpdat
     EXPECT_CALL(*thread_, StartImpl()).Times(1);
     EXPECT_CALL(*thread_, StopImpl()).Times(1);
 
+    EXPECT_CALL(*workPool_, StartImpl()).Times(1);
+    EXPECT_CALL(*workPool_, StopImpl()).Times(1);
+
     {
         ntt::Ref<ntt::ImGuiApplication> application = ntt::ImGuiApplicationBuilder()
                                                 .UseWindow(window_)
                                                 .AddImGuiWindow(imguiWindow)
                                                 .AddThread(thread_)
+                                                .AddWorkPool(workPool_)
                                                 .Build();
+
+        EXPECT_THAT(application->GetWorkPool(workPool_->GetName())->GetName(), 
+                                    testing::StrEq(workPool_->GetName()));
+
+        EXPECT_THAT(application->GetWorkPool("Non Existed Work Pool"), testing::IsNull());
 
         application->MainLoop(true);
     }

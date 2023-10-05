@@ -8,6 +8,7 @@ namespace ntt
     class ImGuiApplication;
     class ImGuiWindow;
     class Thread;
+    class WorkPool;
 
     class ImGuiApplicationBuilder
     {
@@ -19,6 +20,7 @@ namespace ntt
             ImGuiApplicationBuilder& UseWindow(Ref<Window> window);
             ImGuiApplicationBuilder& AddImGuiWindow(Ref<ImGuiWindow> imguiWindow);
             ImGuiApplicationBuilder& AddThread(Ref<Thread> thread);
+            ImGuiApplicationBuilder& AddWorkPool(Ref<WorkPool> workPool);
             ImGuiApplicationBuilder& UseDocking();
             Ref<ImGuiApplication> Build();
 
@@ -26,6 +28,7 @@ namespace ntt
             Ref<Window> window_;
             std::vector<Ref<ImGuiWindow>> imguiWindows_;
             std::vector<Ref<Thread>> threads_;
+            std::vector<Ref<WorkPool>> workPools_;
             bool docking_ = false;
     }; 
 } // namespace ntt

@@ -2,6 +2,7 @@
 #include "EngineImgui/ImGuiApplicationBuilder.hpp"
 #include "EngineImgui/ImGuiApplication.hpp"
 #include "EngineExceptions/EngineExceptions.hpp"
+#include "EngineThreading/EngineThreading.hpp"
 
 
 namespace ntt
@@ -39,6 +40,13 @@ namespace ntt
         return *this;
     }
 
+    ImGuiApplicationBuilder& ImGuiApplicationBuilder::AddWorkPool(Ref<WorkPool> workPool)
+    {
+        workPools_.push_back(workPool);
+        return *this;
+    }
+
+
     ImGuiApplicationBuilder& ImGuiApplicationBuilder::UseDocking()
     {
         docking_ = true;
@@ -62,6 +70,11 @@ namespace ntt
         for (auto thread: threads_)
         {
             imguiApplication->AppendThread(thread);
+        }
+
+        for (auto workPool: workPools_)
+        {
+            imguiApplication->AppendWorkPool(workPool);
         }
 
         return imguiApplication;

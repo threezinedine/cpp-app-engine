@@ -83,6 +83,17 @@ namespace ntt
         threads_.push_back(thread);
     }
 
+    Ref<WorkPool> ImGuiApplication::GetWorkPool(const char* name)
+    {
+        return workPools_[name];
+    }
+
+    void ImGuiApplication::AppendWorkPool(Ref<WorkPool> workPool)
+    {
+        AppendThread(workPool);
+        workPools_[workPool->GetName()] = workPool;
+    }
+
     long long ImGuiApplication::MainLoop(bool testing)
     {
         long long loop = 0;
@@ -104,13 +115,6 @@ namespace ntt
                 ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
             }
 
-            // if (!testing)
-            // {
-            //     static bool showDemo = true;
-            //     ImGui::ShowDemoWindow(&showDemo);
-            // }
-
-            
             for (auto imguiWindow: imguiWindows_)
             {
                 imguiWindow->OnUpdate(ts);

@@ -5,8 +5,8 @@
 
 namespace ntt
 {
-    WorkPool::WorkPool()
-        : Thread("Work Pool")
+    WorkPool::WorkPool(const char* name)
+        : Thread(name)
     {
 
     }

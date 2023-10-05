@@ -11,7 +11,7 @@ namespace ntt
     class WorkPool: public Thread
     {
         public:
-            WorkPool();
+            WorkPool(const char* name);
             ~WorkPool();
 
             void AddWork(Ref<Command> command);
